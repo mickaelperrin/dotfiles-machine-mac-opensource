@@ -15,6 +15,7 @@
       create: true
     ~/.ideavimrc: vim/ideavimrc
     ~/.khdrc: khd/khdrc
+    ~/.macos: macos
     ~/.multitailrc: multitail/multitailrc
     ~/.percold.d: percol.d
     ~/.ssh/config:
