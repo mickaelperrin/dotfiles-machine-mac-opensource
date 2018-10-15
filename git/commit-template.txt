@@ -1,0 +1,60 @@
+
+#-------------------------------------------------
+
+#[FEATURE] GIT > Ecrire un bon message de commit
+#
+# ## Première ligne
+#
+# ### TAGS :
+# [!!!] pour un changement important nécessitant l'adaptation de code
+# [WIP] pour travail en cours. Ne doit jamais être mergé dans le dépôt
+# central.
+# [FEATURE] Nouvelle fonctionnalité (même petite), ou le retrait d'une
+# fonctionnalité.
+# [BUGFIX] Patch pour corriger une anomalie
+# [CLEANUP] Changements qui ne changent pas le périmètre fonctionnel et
+# qui essayent d'améliorer la qualité du code et sa lecture
+# ( ex: conformité aux coding guidelines, amélioration des commentaires)
+# [TASK] Tout ce qui n'est pas couvert par les tags précédents
+# (par ex: refactoring...)
+# [SECURITY] Corrige un problème de sécurité
+#
+# ### EPIC :
+# Le tag doit être suivi par le nom de l'epic en majuscule suivi
+# du symbole >
+#
+# ### Résumé :
+# La ligne doit complète tenir sur 50 caractères et ne pas finir
+# par un point
+#
+# ## Deuxième ligne
+#
+# La deuxième ligne est obligatoirement vide !
+#
+# ## Corps du message
+# - Texte explicatif plus long si nécessaire.
+# - Forcer manuellement le retour à la ligne à 72 caractères.
+# - S'il s'agit d'un BUGFIX introduire les préfixes
+# PROBLEM : décrire brièvement le problème **technique**
+# à l'origine du bug
+# FIX : décrire brièvement la solution technique apportée
+# - Ne pas répéter des informations qui sont décrites dans le ticket
+# - Les verbes doivent être à l'impératif présent et non au passé. Les
+# commits décrivent une série d'insctructions pour passer d'un état à
+# un autre. Utile pour la génération automatique des messages créés par
+# git merge et git revert.
+# - Les listes à puces sont autorisées avec le symbole -
+#
+# ## Méta-données:
+#
+# Les méta-données doivent être placées à la fin du message
+# Resolves : #ID du ticket. Les ID de tickets sont précédés de #.
+# Related : #ID des tickets en relation
+#
+# ## Pour finir :
+#
+# LES MESSAGES DOIVENT ETRE REDIGES EN **ANGLAIS**.
+#
+# Attention à ne jamais commencer une ligne avec un numéro de ticket
+# précédé par un #. Toutes les lignes commençant par # sont
+# automatiquement supprimées par git.

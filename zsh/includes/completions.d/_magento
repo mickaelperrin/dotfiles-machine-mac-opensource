@@ -1,0 +1,14 @@
+#compdef magento
+local FNAME=$HOME/.cache/zsh/completion_magento
+local -a subcmds
+zmodload zsh/mapfile
+
+[ ! -d $HOME/.cache/zsh ] && mkdir -p $HOME/.cache/zsh
+
+if [ ! -f $FNAME ]; then
+  magento ni --raw --no-ansi list | sed -e 's/:/\\:/g' | awk '{print $1":"$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9" "$10" "$11" "$12" "$13" "$14}' >! $FNAME
+fi
+
+subcmds=( "${(f)mapfile[$FNAME]}" )
+
+_describe 'magento' subcmds

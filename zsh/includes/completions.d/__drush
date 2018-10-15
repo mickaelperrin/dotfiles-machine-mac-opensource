@@ -1,0 +1,35 @@
+#compdef drush
+
+# Deactivated have troubles
+
+function drushcli {
+  docker exec -u www-data ${PROJECT_NAME_SANITISED}_fpm_1 bash -c "cd /src/web;COMP_WORDS=\"$COMP_WORDS\" /src/vendor/bin/drush --root=/src/web --uri=${PROJECT_URL} --early=includes/complete.inc \"${COMP_WORDS[@]}\" "
+}
+
+# Completion function, uses the "drush complete" command to retrieve
+# completions for a specific command line COMP_WORDS.
+_drush_completion() {
+  # Set IFS to newline (locally), since we only use newline separators, and
+  # need to retain spaces (or not) after completions.
+  local IFS=$'\n'
+  # The '< /dev/null' is a work around for a bug in php libedit stdin handling.
+  # Note that libedit in place of libreadline in some distributions. See:
+  # https://bugs.launchpad.net/ubuntu/+source/php5/+bug/322214
+  RESULT=("${(@f)$(drushcli)}")
+  STATUS=$?;
+
+
+      if [ $STATUS -eq 200 ]; then
+          _path_files;
+          return 0;
+
+      elif [ $STATUS -ne 0 ]; then
+          echo -e "$RESULT";
+          return $?;
+      fi;
+
+  compadd -- $RESULT
+ }
+
+# Register our completion function. We include common short aliases for Drush.
+compdef _drush_completion drush

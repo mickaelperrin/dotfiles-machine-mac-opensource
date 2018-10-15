@@ -1,0 +1,41 @@
+- defaults:
+    link:
+      relink: true
+
+# Remove dead links pointing to dotbot
+- clean:
+  - '~'
+
+# Create symlinks
+- link:
+    ~/.chunkwmrc: chunkwm/chunkwmrc.sh
+    ~/.config/peco:
+      path: peco
+      create: true
+    ~/.ideavimrc: vim/ideavimrc
+    ~/.khdrc: khd/khdrc
+    ~/.multitailrc: multitail/multitailrc
+    ~/.percold.d: percol.d
+    ~/.ssh/config:
+      path: ssh/config
+      create: true
+    ~/.vim: vim/vim
+    ~/.vimrc: vim/vimrc
+    ~/.vimrc.d: vim/vimrc.d
+    ~/.zsh/includes:
+      path: zsh/includes
+      create: true
+    ~/.zlogout: zsh/includes/prezto.d/zlogout.sh
+    ~/.zpreztorc: zsh/includes/prezto.d/zpreztorc.sh
+    ~/.zprofile: zsh/includes/prezto.d/zprofile.sh
+    ~/.zshenv: zsh/includes/prezto.d/zshenv.sh
+    ~/.zshrc: zsh/zshrc.sh
+    /tmp/init: init
+
+- shell:
+
+  - command: /bin/bash /tmp/init/install.sh
+    description: Install script
+    stdout: true
+    stderr: true
+

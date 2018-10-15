@@ -1,0 +1,15 @@
+Host *
+    IdentitiesOnly yes
+    ServerAliveInterval 600
+    ServerAliveCountMax 5
+    TCPKeepAlive no
+
+Include ~/.ssh/config.d/customers/*
+Include ~/.ssh/config.d/customers.config
+Include ~/.ssh/config.d/local/*
+Include ~/.ssh/config.d/personal/*
+Include ~/.ssh/config.d/personal.config
+Include ~/.ssh/config.d/professional/*
+Include ~/.ssh/config.d/professional.config
+
+

@@ -1,0 +1,87 @@
+" ============================================================================
+" Search /replace
+" ============================================================================
+
+" When 'ignorecase' and 'smartcase' are both on,
+" if a pattern contains an uppercase letter, it is case sensitive,
+" otherwise, it is not.
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" When on, the ":substitute" flag 'g' is default on.  This means that
+" all matches in a line are substituted instead of one. search
+set gdefault
+
+" ============================================================================
+" Misc
+" ============================================================================
+
+" Integrate with system clipboard
+set clipboard=unnamedplus,unnamed
+
+" 5 lines above/below cursor when scrolling
+set scrolloff=5
+
+" backspace and cursor keys wrap to previous/next line
+set backspace=indent,eol,start
+
+" Blink cursor on error instead of beeping (grr)
+set visualbell
+set noerrorbells
+
+set cursorline
+
+
+" ============================================================================
+" Keybindings
+" ============================================================================
+
+" Leader key is space
+let mapleader = " "
+
+" Normal
+" ------
+
+" Select all text
+map <Space>a ggVG
+noremap <M-a> ggVG
+
+" Copy until the end of the line
+noremap Y y$
+
+" Indent everything
+noremap <Space>I ggvG=
+
+" Indent the current line
+noremap <Space>i v=
+
+" Change current word - kill
+noremap K ciw
+
+" Change in double quotes
+noremap J ci"
+
+" Join lines
+nnoremap <Space>J J
+
+" Visual
+" ------
+
+" Indent selection in visual mode
+vnoremap <Space>i =
+
+" Moving blocks of text in visual mode
+" Select text with v then use < and > to indent
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <sv
+
+" Editor
+" ------
+
+" Enter the command-line mode
+noremap <CR> :
+
+
+

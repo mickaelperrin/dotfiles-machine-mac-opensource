@@ -1,0 +1,35 @@
+source ~/.vimrc.d/vimrc.common
+
+
+" ============================================================================
+" Editor control
+" ============================================================================
+
+" Reload .ideavimrc
+nnoremap <leader>vs :source ~/.ideavimrc<CR>
+
+" ============================================================================
+" IDE actions
+" ============================================================================
+
+nnoremap / :action Find<CR>
+nnoremap n :action FindNext<CR>
+nnoremap N :action FindPrevious<CR>
+nnoremap U :action $Redo<CR>
+nnoremap <leader>o :action GotoClass<CR>
+nnoremap <leader>O :action GotoFile<CR>
+nnoremap <leader>d :action CloseContent<CR>
+nnoremap <leader>j :action RecentFiles<CR>
+nnoremap <leader>k :action FileStructurePopup<CR>
+nnoremap <leader>cb :action CloseAllEditorsButActive<cr>
+
+" Plugins
+" -------
+
+set surround
+
+" AceJump
+map ; :action AceAction<CR>
+map <leader>f :action AceTargetAction<CR>
+map <leader>g :action AceLineAction<CR>
+map , :action AceWordAction<CR>

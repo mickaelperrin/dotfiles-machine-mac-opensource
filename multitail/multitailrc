@@ -1,0 +1,106 @@
+check_mail:0
+tab_stop:2
+shell:/bin/zsh
+global_default_nkb:1MB
+scrollback_show_winnrs:no
+scrollback_no_colors:no
+beep_method:none
+#red, green, yellow, blue, magenta, cyan and white
+# cf color codes at https://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+markerline_color:red,black,reverse
+markerline_char:#
+markerline_timestamp:on
+
+# NGINX
+# ----------------
+colorscheme:nginx
+cs_re_s:14:^(nginx_[[:digit:]][[:space:]]+\|)
+mcsre_s:250:^.*\|(.* 20.? .*)$
+mcsre_s:248:^.*\|(.* 30.? .*)$
+mcsre_s:220:^.*\|(.* 40.? .*)$
+mcsre_s:244,220,bold:^.* 40.? "[^ ]+ ([^ ]+).*$
+mcsre_s:160:^.*\|(.* 50.? .*)$
+mcsre_s:160:^.*\|(.*error.*)$
+mcsre_s:244,160,bold:^.* 50.? "[^ ]+ ([^ ]+).*$
+
+# FPM
+# -----------------
+colorscheme:fpm
+cs_re_s:18:^(fpm_[[:digit:]][[:space:]]+\|)
+cs_re:250:^.*\| ;.*$
+mcsre_s:250:^.*\|(.* 20.? .*)$
+mcsre_s:248:^.*\|(.* 30.? .*)$
+mcsre_s:220:^.*\|(.* 40.? .*)$
+mcsre_s:244,220,bold:^.* 40.? "[^ ]+ ([^ ]+).*$
+mcsre_s:160:^.*\|(.* 50.? .*)$
+mcsre_s:244,160,bold:^.* 50.? "[^ ]+ ([^ ]+).*$
+
+# PHP
+# -----------------
+colorscheme:php
+cs_re_s:blue:^((php|fpm)[[:space:]]+\|)
+# built-in PHP error output format
+cs_re:white,red:PHP (Stack trace:|Fatal error:).*
+mcsre_s:,,bold:PHP Fatal error: (.*)
+# stack traces from xdebug have leading "PHP +"
+cs_re:white,red:PHP [ 0-9]+\.
+cs_re:white,red:\[E_ERROR\] .*
+cs_re:white,yellow:PHP Warning: .*
+mcsre_s:,,bold:PHP Warning: (.*)
+mcsre_s:,,bold:\[E_WARNING\] (.*)
+cs_re:yellow:PHP Notice: .*
+cs_re:yellow:\[E_NOTICE\] .*
+mcsre_s:,,bold:PHP Notice: (.*)
+mcsre_s:,,bold:\[E_Notice\] (.*)
+
+# custom severity tags
+cs_re:white,red,bold:\[(ALERT|CRIT|EMERG|FATAL)\]
+cs_re:red:\[(ERROR)\]|error
+cs_re:yellow:\[(NOTICE|WARN)\]
+cs_re:cyan:\[(INFO|DEBUG)\]
+mcsre_s:,,bold:\[(ALERT|CRIT|EMERG|ERROR|NOTICE|WARN)\]
+
+# additional substring color
+# date/times
+cs_re_s:cyan:^(([0-9]{2,})+ ?)+
+# key-value pairs
+cs_re_s:green:([a-zA-Z0-9_]+=[^ ]*)
+# brackets, quotations
+cs_re_s:blue:(\[|\]|\{|\})
+mcsre_s:green:("[^"]*")
+mcsre_s:green:('[^']*')
+# file/class paths
+mcsre_s:blue:(([a-zA-Z0-9_:]+(/|\\)+)+[a-zA-Z0-9_.]+)
+
+# DRUPAL
+# -----------------
+colorscheme:drupal
+cs_re_s:012:^(drupal[[:space:]]+\|)
+mcsre_s:240:^.*\|(.*notice.*)$
+mcsre_s:220:^.*\|(.*warning.*)$
+mcsre_s:160:^.*\|(.*error.*)$
+mcsre_s:250:^.*\|(.*)$
+
+# POSTGRES
+# -----------------
+colorscheme:postgres
+cs_re_s:200:^(postgres_[[:digit:]][[:space:]]+\|)
+mcsre_s:160:^.*(ERROR.*)$
+mcsre_s:250:^.*\|(.*)$
+
+# PSQL2LOG
+# -----------------
+colorscheme:psqllog
+cs_re_s:51:^(psql2log_[[:digit:]][[:space:]]+\|)
+mcsre_s:250:^.*\|(.*)$
+mcsre_s:0,,bold:^.*\| ([^ ]+)
+
+# MAILCATCHER
+# -----------------
+colorscheme:mail
+cs_re_s:201:^(mail[[:space:]]+\|)
+
+# RSYNC
+# -----------------
+colorscheme:rsync
+cs_re_s:161:^(rsync[[:space:]]+\|)
