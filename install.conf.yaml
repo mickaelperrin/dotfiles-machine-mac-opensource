@@ -8,6 +8,7 @@
 
 # Create symlinks
 - link:
+    ~/.bin.base: bin
     ~/.chunkwmrc: chunkwm/chunkwmrc.sh
     ~/.config/peco:
       path: peco

@@ -6,9 +6,7 @@ export POWERLEVEL9K_MODE='nerdfont-complete'
 ## PATH
 
 path+=(
-
-
-
+  ~/.bin.base
 )
 
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"

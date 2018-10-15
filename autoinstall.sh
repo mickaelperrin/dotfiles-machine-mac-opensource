@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DOTFILES_LOCATION=${DOTFILES_LOCATION:-~/.dotfiles.base}
+DOTFILES_LOCATION=${DOTFILES_LOCATION_BASE:-~/.dotfiles.base}
 
 if  [ -d $DOTFILES_LOCATION -a -d $DOTFILES_LOCATION/.git ]; then
   cd $DOTFILES_LOCATION
