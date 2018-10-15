@@ -19,6 +19,12 @@ git clone mickaelperrin/dotfiles-machine-mac-opensource ~/.dotfiles.base
 ~/.dotfiles.base/install
 ```
 
+### One liner
+
+```
+curl https://raw.githubusercontent.com/mickaelperrin/dotfiles-machine-mac-opensource/master/autoinstall.sh | bash
+```
+
 ## Software installed
 
 The list of packages installed can be found in the `init/packages.default.sh` file.
