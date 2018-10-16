@@ -55,21 +55,21 @@ function loadIfExists() {
   fi
 
   if [ -d "$dir" ]; then
-    find $dir -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
+    find $dir/ -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
       source "$file"
     done
   fi
 
   # First extend / override of a shared config
   if [ -d "$dir/shared" ]; then
-    find $dir/shared -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
+    find $dir/shared/ -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
       source "$file"
     done
   fi
 
   # Second extend / override for own config
   if [ -d "$dir/custom" ]; then
-    find $dir/custom -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
+    find $dir/custom/ -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
       source "$file"
     done
   fi
