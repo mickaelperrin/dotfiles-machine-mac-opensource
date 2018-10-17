@@ -14,34 +14,13 @@ else
   . $SCRIPT_DIR/packages.default.sh ]
 fi
 
-h1() {
-  echo
-  echo
-  echo
-  echo "==================================================================="
-  echo "$1"
-  echo "==================================================================="
-  echo
-}
 
-xcodeInstall() {
-  h1 "Developer tools installation (xcode)"
-# Download and install Command Line Tools if no developer tools exist
-#       * previous evaluation didn't work completely, due to gcc binary existing for vanilla os x install
-#       * gcc output on vanilla osx box:
-#       * 'xcode-select: note: no developer tools were found at '/Applications/Xcode.app', requesting install.
-#       * Choose an option in the dialog to download the command line developer tools'
-#
-# Evaluate 2 conditions
-#       * ensure dev tools are installed by checking the output of gcc
-#       * check to see if gcc binary even exists ( original logic )
-# if either of the conditions are met, install dev tools
-if [[ $(/usr/bin/gcc 2>&1) =~ "no developer tools were found" ]] || [[ ! -x /usr/bin/gcc ]]; then
-  echo "Info   | Install   | xcode"
-  xcode-select --install
-else
-  echo "developer tools already installed. Skipping..."
-fi
+askForPackagesUpdate() {
+  read -p "Do you want to install/update software ? [Y/n] " answer
+  case ${answer:0:1} in
+    n|N) exit ;;
+    *) continue;;
+  esac
 }
 
 brewInstall() {
@@ -201,6 +180,16 @@ gemPackages() {
   done
 }
 
+h1() {
+  echo
+  echo
+  echo
+  echo "==================================================================="
+  echo "$1"
+  echo "==================================================================="
+  echo
+}
+
 masPackages() {
 
   h1 "Apple Store software"
@@ -262,6 +251,26 @@ vimPluginsInstall() {
   vim +PlugInstall +qall!
 }
 
+xcodeInstall() {
+  h1 "Developer tools installation (xcode)"
+# Download and install Command Line Tools if no developer tools exist
+#       * previous evaluation didn't work completely, due to gcc binary existing for vanilla os x install
+#       * gcc output on vanilla osx box:
+#       * 'xcode-select: note: no developer tools were found at '/Applications/Xcode.app', requesting install.
+#       * Choose an option in the dialog to download the command line developer tools'
+#
+# Evaluate 2 conditions
+#       * ensure dev tools are installed by checking the output of gcc
+#       * check to see if gcc binary even exists ( original logic )
+# if either of the conditions are met, install dev tools
+if [[ $(/usr/bin/gcc 2>&1) =~ "no developer tools were found" ]] || [[ ! -x /usr/bin/gcc ]]; then
+  echo "Info   | Install   | xcode"
+  xcode-select --install
+else
+  echo "developer tools already installed. Skipping..."
+fi
+}
+
 zshInstall() {
 
   h1 "ZSH requirements"
@@ -285,13 +294,6 @@ zshInstall() {
 
 }
 
-askForPackagesUpdate() {
-  read -p "Do you want to install/update software ? [Y/n] " answer
-  case ${answer:0:1} in
-    n|N) exit ;;
-    *) continue;;
-  esac
-}
 
 askForPackagesUpdate
 
