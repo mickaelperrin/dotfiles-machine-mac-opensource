@@ -40,4 +40,5 @@
     description: Install script
     stdout: true
     stderr: true
+    stdin: true
 

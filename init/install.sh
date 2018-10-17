@@ -285,6 +285,16 @@ zshInstall() {
 
 }
 
+askForPackagesUpdate() {
+  read -p "Do you want to install/update software ? [Y/n] " answer
+  case ${answer:0:1} in
+    n|N) exit ;;
+    *) continue;;
+  esac
+}
+
+askForPackagesUpdate
+
 if [ "$(uname)" == "Darwin" ]; then
   xcodeInstall
   brewInstall
