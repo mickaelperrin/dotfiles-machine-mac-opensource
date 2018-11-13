@@ -18,6 +18,7 @@ BASE_PACKAGES=(
   git-lfs
   gnu-sed
   gpg
+  grep
   htop
   jq
   node
