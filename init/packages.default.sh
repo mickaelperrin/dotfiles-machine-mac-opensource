@@ -24,6 +24,7 @@ BASE_PACKAGES=(
   node
   peco
   php
+  p7zip
   rmtrash
   tig
   tree
