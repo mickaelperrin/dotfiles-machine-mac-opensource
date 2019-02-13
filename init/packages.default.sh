@@ -12,15 +12,21 @@ BASE_PACKAGES=(
   coreutils
   ctop
   docker-compose
+  dos2unix
   fd
+  fswatch
   fzf
   git
+  gnugrep
   git-lfs
   gnu-sed
+  gnu-tar
   gpg
   grep
   htop
   jq
+  md5deep
+  md5sha1sum
   node
   peco
   php
@@ -36,8 +42,15 @@ BASE_PACKAGES=(
 )
 
 TOOLS_PACKAGES=(
+  awscli
+  certbot
   chunkwm
   khd
+  kubectl
+  packer
+  scw
+  terraform
+  terraform-inventory
 )
 
 BASE_CASK_PACKAGES=(
@@ -49,6 +62,7 @@ BASE_CASK_PACKAGES=(
 TOOLS_CASK_PACKAGES=(
   alfred
   authy
+  carbon-copy-cloner
   gitkraken
   iterm2
   jetbrains-toolbox
