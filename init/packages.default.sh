@@ -37,6 +37,7 @@ BASE_PACKAGES=(
   terminal-notifier
   vim
   wget
+  xmlstarlet
   yarn
   zsh
 )
@@ -45,6 +46,7 @@ TOOLS_PACKAGES=(
   awscli
   certbot
   chunkwm
+  dinghy
   khd
   kubectl
   packer
