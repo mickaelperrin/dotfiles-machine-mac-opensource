@@ -1,1 +1,10 @@
 /vim/vim/plugged
+/zsh/includes/env.d/shared
+/zsh/includes/functions.d/custom
+/zsh/includes/completions.d/shared
+/zsh/includes/functions.d/shared
+/zsh/includes/plugins.manual.conf.d/shared
+/zsh/includes/alias.d/shared
+/zsh/includes/env.d/custom
+/zsh/includes/alias.d/custom
+/zsh/includes/completions.d/custom
