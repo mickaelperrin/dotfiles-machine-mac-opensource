@@ -74,8 +74,8 @@ mcsre_s:blue:(([a-zA-Z0-9_:]+(/|\\)+)+[a-zA-Z0-9_.]+)
 
 # DRUPAL
 # -----------------
-colorscheme:drupal
-cs_re_s:012:^(drupal[[:space:]]+\|)
+colorscheme:cms
+cs_re_s:012:^(cms[[:space:]]+\|)
 mcsre_s:240:^.*\|(.*notice.*)$
 mcsre_s:220:^.*\|(.*warning.*)$
 mcsre_s:160:^.*\|(.*error.*)$
