@@ -18,7 +18,7 @@ zstyle ':prezto:module:prompt' show-return-val 'yes'
 
 
 export DEFAULT_USER=$(whoami)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir dir_writable vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir dir_writable virtualenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time_joined virtualenv)
 #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 #POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
