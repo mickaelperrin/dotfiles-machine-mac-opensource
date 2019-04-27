@@ -126,7 +126,7 @@ brewInstallPackages() {
 }
 
 brewSpecificPackages() {
-  brew install lastpass-cli --with-pinentry
+  return
 }
 
 composerPackages() {
