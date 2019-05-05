@@ -54,6 +54,7 @@ TOOLS_PACKAGES=(
 )
 
 BASE_CASK_PACKAGES=(
+  1password
   1password-cli
   docker-edge
   font-hack-nerd-font
@@ -90,6 +91,4 @@ COMPOSER_PACKAGES=(
 )
 
 MAS_PACKAGES=(
-  #1Password
-  1333542190
 )
