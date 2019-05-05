@@ -80,6 +80,8 @@ NPM_PACKAGES=(
 
 PIP_PACKAGES=(
   pygments
+  onepassword-local-search
+  onepassord-tools
 )
 
 GEM_PACKAGES=(
