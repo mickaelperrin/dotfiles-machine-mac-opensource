@@ -17,7 +17,6 @@ BASE_PACKAGES=(
   fswatch
   fzf
   git
-  gnugrep
   git-lfs
   gnu-sed
   gnu-tar
