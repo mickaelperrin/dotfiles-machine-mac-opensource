@@ -46,7 +46,6 @@ TOOLS_PACKAGES=(
   awscli
   certbot
   chunkwm
-  dinghy
   khd
   kubectl
   packer
