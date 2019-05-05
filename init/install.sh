@@ -39,7 +39,7 @@ getInstalledPackages() {
 
   INSTALLED_PACKAGES=$(brew list -1)
   INSTALLED_CASK_PACKAGES=$(brew cask list -1)
-  INSTALLED_TAPS=$(brew tap -1)
+  INSTALLED_TAPS=$(brew tap)
   INSTALLED_GEMS=$(gem list --no-versions)
   INSTALLED_NPM_PACKAGES=$(ls -1 $(npm root -g))
   INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3)
