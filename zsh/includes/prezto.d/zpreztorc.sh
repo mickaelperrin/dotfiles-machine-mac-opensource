@@ -105,7 +105,7 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule-dirs ${ZSH_CONFIG_PATH}/prezto.d/plugins.prezto.custom.d
 
 # Set the Zsh modules to load (man zshmodules).
-zstyle ':prezto:load' zmodule 'attr' 'stat'
+#zstyle ':prezto:load' zmodule 'attr'
 
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':prezto:load' zfunction 'zargs' 'zmv'
