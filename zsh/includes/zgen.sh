@@ -48,6 +48,9 @@ githubPlugins=(
   # Support for opening vi file at line vi file:123
   nviennot/zsh-vim-plugin
 
+  # Auto switch create to virtual env
+  MichaelAquilina/zsh-autoswitch-virtualenv
+
 )
 
 function sourcePluginConfigFile() {
