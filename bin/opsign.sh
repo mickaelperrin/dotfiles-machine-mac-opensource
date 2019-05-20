@@ -53,7 +53,9 @@ function getSessionSharingFile() {
 }
 
 function get1PasswordSession() {
-  OP_SESSIONSHARING_FILE="$(find ${TMPDIR:-/tmp} -maxdepth 1 -name 'opsessions.*' -print0 | xargs -0 ls -1 -t | head -1)"
+  if [[ -z "$OP_SESSIONSHARING_FILE" ]]; then
+    OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
+  fi
   if [[ "$(isAuthenticatedOnGPG)" == "1" ]] && [[ ! -z "$OP_SESSIONSHARING_FILE" ]] && [[ -f "$OP_SESSIONSHARING_FILE" ]]; then
     gpg --quiet --decrypt "$OP_SESSIONSHARING_FILE"
   fi
@@ -65,16 +67,17 @@ function isAuthenticatedOnGPG() {
 
 # Only exec if not sourced
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
   checks
   cleanup
 
   if [[ "$ACTION" == "in" ]]; then
     op_signin
-    OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
     persistSessionKeys | gpg --encrypt --batch --yes --quiet --recipient "$MY_GPG_PUBLIC_ID" --output "$OP_SESSIONSHARING_FILE"
     persistSessionKeys
+  elif  [[ "$ACTION" == "update" ]]; then
+    get1PasswordSession
   else
-    OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
     op_signout
   fi
 fi
