@@ -92,6 +92,8 @@ PIP_PACKAGES=(
   pygments
   onepassword-local-search
   onepassord-tools
+  bumpversion
+  pyotp
 )
 
 GEM_PACKAGES=(
