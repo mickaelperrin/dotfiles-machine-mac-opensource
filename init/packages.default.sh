@@ -14,9 +14,11 @@ BASE_PACKAGES=(
   docker-compose
   dos2unix
   fd
+  findutils
   fswatch
   fzf
   git
+  gnu-getopt
   git-lfs
   gnu-sed
   gnu-tar
@@ -31,6 +33,7 @@ BASE_PACKAGES=(
   php
   p7zip
   rmtrash
+  sleepwatcher
   tig
   tree
   terminal-notifier
@@ -38,17 +41,24 @@ BASE_PACKAGES=(
   wget
   xmlstarlet
   yarn
+  yq
   zsh
 )
 
 TOOLS_PACKAGES=(
   awscli
   certbot
+  certtool
+  colordiff
+  cliclick
   chunkwm
   khd
   kubectl
   packer
+  pinentry-tty
   scw
+  getsentry/tools/sentry-cli
+  secure-delete
   terraform
   terraform-inventory
 )
