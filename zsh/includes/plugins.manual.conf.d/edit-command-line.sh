@@ -5,4 +5,4 @@ zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 # Vi style:
-bindkey -M vicmd v edit-command-lin\e
+bindkey -M vicmd v edit-command-line
