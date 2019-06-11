@@ -44,14 +44,10 @@ _gen_fzf_default_opts() {
   #  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
   #"
 
-  export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
-  --color=dark
-  --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
-  --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
-"
+  export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=\"hl:#00FF00,fg+:#111111,bg+:#00FF00,hl+:#FF0000,info:#98c379,prompt:#83d267,pointer:#cc0000,marker:#000000,spinner:#61afef,header:#83d267\""
 }
 _gen_fzf_default_opts
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --color=bg+:-1 --prompt='>> ' --inline-info --no-height"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --prompt='>> ' --inline-info --no-height"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 if which fd > /dev/null; then
