@@ -1,9 +1,9 @@
 alias dl="docker ps -l -q" # Get latest container ID
-alias dps="docker ps --format '{{.ID}}|{{.Names}}|{{.Image}}|{{.Status}}|{{.Ports}}' | awk -F  \"|\" '{split(\$3,name,\"/\");print \$1\"|\"\$2\"|\"name[2]\"|\"\$4\"|\"\$5}' | column -t -s '|' | peco | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy"
-alias dpa="docker ps -a --format '{{.ID}}|{{.Names}}|{{.Image}}|{{.Status}}|{{.Ports}}' | awk -F  \"|\" '{split(\$3,name,\"/\");print \$1\"|\"\$2\"|\"name[2]\"|\"\$4\"|\"\$5}' | column -t -s '|' | peco | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy"
-alias di="docker images | peco | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy" # Get images
-alias dnls="docker network ls | peco | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy" # Get networks
-alias dvls="docker volume ls | peco | awk '{print \$2\" \"} ' | tr -d '\n' | pbcopy" # Get networks
+alias dps="docker ps --format '{{.ID}}|{{.Names}}|{{.Image}}|{{.Status}}|{{.Ports}}' | awk -F  \"|\" '{split(\$3,name,\"/\");print \$1\"|\"\$2\"|\"name[2]\"|\"\$4\"|\"\$5}' | column -t -s '|' | fzf | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy"
+alias dpa="docker ps -a --format '{{.ID}}|{{.Names}}|{{.Image}}|{{.Status}}|{{.Ports}}' | awk -F  \"|\" '{split(\$3,name,\"/\");print \$1\"|\"\$2\"|\"name[2]\"|\"\$4\"|\"\$5}' | column -t -s '|' | fzf | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy"
+alias di="docker images | fzf | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy" # Get images
+alias dnls="docker network ls | fzf | awk '{print \$1\" \"} ' | tr -d '\n' | pbcopy" # Get networks
+alias dvls="docker volume ls | fzf | awk '{print \$2\" \"} ' | tr -d '\n' | pbcopy" # Get networks
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'" # Get container IP
 alias dkd="docker run -d -P" # Run deamonized container, e.g., $dkd base /bin/echo hello
 alias dki="docker run -i -t -P" # Run interactive container, e.g., $dki base /bin/bash

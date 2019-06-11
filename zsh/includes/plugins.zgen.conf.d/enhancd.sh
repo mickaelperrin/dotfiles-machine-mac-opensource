@@ -1,6 +1,5 @@
 # Documentation at https://github.com/b4b4r07/enhancd
-export ENHANCD_FILTER="/usr/local/bin/peco:fzf:non-existing-filter"
-export ENHANCD_DOT_SHOW_FULLPATH=1
+export ENHANCD_FILTER="fzf:/usr/local/bin/peco:fzy:non-existing-filter"
 
 ENHANCD_AUTO_LS=true
 ENHANCD_GIT_STATUS=true

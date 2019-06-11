@@ -34,18 +34,25 @@ _gen_fzf_default_opts() {
   # Comment and uncomment below for the light theme.
 
   # Solarized Dark color scheme for fzf
-  export FZF_DEFAULT_OPTS="
-    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
-    --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
-  "
+  #export FZF_DEFAULT_OPTS="
+  #  --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+  #  --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+  #"
   ## Solarized Light color scheme for fzf
   #export FZF_DEFAULT_OPTS="
   #  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
   #  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
   #"
+
+  export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
+  --color=dark
+  --color=fg:-1,bg:-1,hl:#c678dd,fg+:#ffffff,bg+:#4b5263,hl+:#d858fe
+  --color=info:#98c379,prompt:#61afef,pointer:#be5046,marker:#e5c07b,spinner:#61afef,header:#61afef
+"
 }
 _gen_fzf_default_opts
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height 70% --reverse --border"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --color=bg+:-1 --prompt='>> ' --inline-info --no-height"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 if which fd > /dev/null; then
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
@@ -71,14 +78,16 @@ FZF_COMPLETIONS_DIR="$ZSH_CONFIG_PATH/completions.fzf.d"
 if [ -d "$FZF_COMPLETIONS_DIR" ]; then
   find $FZF_COMPLETIONS_DIR -name '*.sh' -print0 | while IFS= read -r -d $'\0' file; do
     source "$file"
-  done
+    done
 fi
 
 # Keep using percol for histopry search
-bindkey '^R' percol_select_history
+#bindkey '^R' percol_select_history
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --reverse --color=bg+:-1 --prompt='>> ' --inline-info"
 
 # Trigger fzf completion
-export FZF_COMPLETION_TRIGGER='@'
+export FZF_COMPLETION_TRIGGER='@@'
 
 #TODO: bindkey not working ?
-#bindkey '^T' fzf-completion
+bindkey '^O' fzf-completion
+bindkey '^P' $fzf_default_completion
