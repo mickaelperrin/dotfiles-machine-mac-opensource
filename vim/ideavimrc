@@ -27,6 +27,7 @@ nnoremap <leader>cb :action CloseAllEditorsButActive<cr>
 " -------
 
 set surround
+set multiple-cursors
 
 " AceJump
 map ; :action AceAction<CR>
