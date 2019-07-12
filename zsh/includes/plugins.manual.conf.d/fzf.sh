@@ -47,7 +47,7 @@ _gen_fzf_default_opts() {
   export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=\"hl:#00FF00,fg+:#111111,bg+:#00FF00,hl+:#FF0000,info:#98c379,prompt:#83d267,pointer:#cc0000,marker:#000000,spinner:#61afef,header:#83d267\""
 }
 _gen_fzf_default_opts
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --prompt='>> ' --inline-info --no-height"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --prompt='>> ' --inline-info --no-height --exact"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 if which fd > /dev/null; then
@@ -79,7 +79,7 @@ fi
 
 # Keep using percol for histopry search
 #bindkey '^R' percol_select_history
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --reverse --color=bg+:-1 --prompt='>> ' --inline-info"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --reverse --prompt='>> ' --inline-info --exact"
 
 # Trigger fzf completion
 export FZF_COMPLETION_TRIGGER='@@'
