@@ -51,6 +51,8 @@ githubPlugins=(
   # Auto switch create to virtual env
   MichaelAquilina/zsh-autoswitch-virtualenv
 
+  # Fzf wrapper around git commands
+  wfxr/forgit
 )
 
 function sourcePluginConfigFile() {
