@@ -1,9 +1,9 @@
 # Documentation at https://github.com/b4b4r07/enhancd
 export ENHANCD_FILTER="fzf:/usr/local/bin/peco:fzy:non-existing-filter"
 
-ENHANCD_AUTO_LS=true
-ENHANCD_GIT_STATUS=true
-ENHANCD_LAST_DIR=
+export ENHANCD_AUTO_LS=true
+export ENHANCD_GIT_STATUS=true
+export ENHANCD_LAST_DIR=
 
 function _after_cd() {
   # Do run hook twice on same folder
