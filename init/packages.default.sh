@@ -102,6 +102,7 @@ GEM_PACKAGES=(
 
 COMPOSER_PACKAGES=(
   bamarni/symfony-console-autocomplete
+  davidrjonas/composer-lock-diff
 )
 
 MAS_PACKAGES=(
