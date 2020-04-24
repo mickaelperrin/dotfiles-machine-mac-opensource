@@ -19,7 +19,7 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 ## Python
 export PIP_REQUIRE_VIRTUALENV=true
 export WORKON_HOME=$HOME/Virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 
