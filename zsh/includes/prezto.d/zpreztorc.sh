@@ -60,7 +60,7 @@ preztoPlugins=(
 
   # Integrates zsh-history-substring-search into Prezto, which implements the Fish shell's history search feature, where the user can type in any part of a previously entered command and press up and down to cycle through matching commands.
   # Should be loaded *after* 'syntax-highlighting'
-  'history-substring-search'
+  #'history-substring-search'
 
   # fast/unobtrusive autosuggestions
   # should be loaded *after* syntax-highlighting
