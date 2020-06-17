@@ -29,7 +29,7 @@ brewInstall() {
 
   if ! which brew > /dev/null; then
     echo "Installing Brew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   else
     echo "Brew already installed. Skipping..."
   fi
