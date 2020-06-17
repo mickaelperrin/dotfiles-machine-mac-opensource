@@ -22,6 +22,9 @@ export WORKON_HOME=$HOME/Virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 ## Ruby
 
@@ -30,3 +33,4 @@ export GEM_HOME="$HOME/.gem"
 ## Imgur
 # used in alfred workflow
 export IMGUR_CLIENT_ID=247f57bb8217a70
+

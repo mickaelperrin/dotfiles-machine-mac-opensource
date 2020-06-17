@@ -221,6 +221,14 @@ pipPackages() {
   local packages=("${@}")
   local alreadyInstalled=$INSTALLED_PIP_PACKAGES
 
+  if command -v pyenv 1>/dev/null 2>&1; then
+    pyenv global 3.7.7
+    eval "$(pyenv init -)"
+  else
+    echo "pyenv not installed. Aborting..."
+    exit 1
+  fi
+
   if ! which pip > /dev/null; then
     sudo easy_install pip
   fi
@@ -231,7 +239,7 @@ pipPackages() {
       continue
     fi
     echo "Installing $package..."
-    sudo -H pip install $package
+    PIP_REQUIRE_VIRTUALENV="" pip install $package
   done
 }
 
