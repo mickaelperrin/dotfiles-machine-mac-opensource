@@ -7,6 +7,7 @@ INSTALLED_TAPS=
 INSTALLED_GEMS=
 INSTALLED_NPM_PACKAGES=
 INSTALLED_PIP_PACKAGES=
+export CURL_SSL_BACKEND=secure-transport
 
 if [ -e $SCRIPT_DIR/packages.sh ]; then
   . $SCRIPT_DIR/packages.sh ]
