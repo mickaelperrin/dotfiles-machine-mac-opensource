@@ -3,96 +3,76 @@ BASE_TAPS=(
   homebrew/cask
   homebrew/cask-fonts
   homebrew/cask-versions
-  crisidev/homebrew-chunkwm
-  koekeishiya/formulae
 )
 
 BASE_PACKAGES=(
-  composer
-  coreutils
-  ctop
-  docker-compose
+  composer # PHP package manager
+  coreutils # Required for gshred binary
+  ctop # Docker containers top
+  docker-compose # Docker compose tool
   dos2unix
-  fd
+  fd # Simple fast alternative to find
   findutils
   fswatch
-  fzf
+  fzf # fuzzy find tool used in custom scripts
   git
   gnu-getopt
-  git-lfs
-  gnu-sed
-  gnu-tar
-  gpg
-  grep
-  htop
-  jq
+  git-lfs # Large file storage for git
+  gnu-sed # GNU version of sed
+  gnu-tar # GNU version of tar
+  gpg # encryption of files required for blackbox
+  go # Go languange
+  grc # Tag git repositories
+  grep # GNU grep used in some scripts (ggrep)
+  highlight # syntax highlighter
+  htop # Top processes
+  jq # JSON processor
   md5deep
-  md5sha1sum
   node
-  peco
+  peco # Fuzzy filter used in many custom bash scripts
   php
+  pyenv
   p7zip
-  rmtrash
-  sleepwatcher
-  tig
-  tree
-  terminal-notifier
-  vim
-  wget
-  xmlstarlet
-  yarn
+  rmtrash # move file to macos trash
+  tig # CLI git client
+  tree # Display directory tree in CLI
+  terminal-notifier # Mac OS notifications from CLI
+  unison # File synchronize used mainly to resolve performance issues with Docker
+  vim # Text editor
+  wget # CLI downloader
+  xmlstarlet # CLI file editor used in wordpress generator
+  yarn # Faster NPM clone by Facebook
   yq
-  zsh
+  zsh # Main shell
 )
 
 TOOLS_PACKAGES=(
-  awscli
-  certbot
-  certtool
   colordiff
-  cliclick
-  chunkwm
-  khd
-  kubectl
-  packer
-  pinentry-tty
-  scw
-  getsentry/tools/sentry-cli
-  secure-delete
-  terraform
-  terraform-inventory
 )
 
 BASE_CASK_PACKAGES=(
+  alfred # effective launcher and much more
   1password
   1password-cli
   docker-edge
   font-hack-nerd-font
+  iterm2 # Terminal
+  jetbrains-toolbox # phpstorm installer
   vagrant
 )
 
 TOOLS_CASK_PACKAGES=(
-  alfred
-  authy
-  carbon-copy-cloner
-  gitkraken
   iterm2
   jetbrains-toolbox
-  poedit
-  typora
 )
 
 NPM_PACKAGES=(
-  foundation-cli
-  gulp
-  yo
 )
 
 PIP_PACKAGES=(
   pygments
   onepassword-local-search
-  onepassord-tools
-  bumpversion
+  onepassword-tools
   pyotp
 )
 
@@ -101,7 +81,6 @@ GEM_PACKAGES=(
 )
 
 COMPOSER_PACKAGES=(
-  bamarni/symfony-console-autocomplete
   davidrjonas/composer-lock-diff
 )
 
