@@ -20,6 +20,7 @@ BASE_PACKAGES=(
   git-lfs # Large file storage for git
   gnu-sed # GNU version of sed
   gnu-tar # GNU version of tar
+
   gpg # encryption of files required for blackbox
   go # Go languange
   grc # Tag git repositories
@@ -29,6 +30,7 @@ BASE_PACKAGES=(
   jq # JSON processor
   md5deep
   node
+  nodenv
   peco # Fuzzy filter used in many custom bash scripts
   php
   pyenv
@@ -59,6 +61,7 @@ BASE_CASK_PACKAGES=(
   iterm2 # Terminal
   jetbrains-toolbox # phpstorm installer
   vagrant
+  gpg-suite
 )
 
 TOOLS_CASK_PACKAGES=(
