@@ -177,7 +177,7 @@ gemPackages() {
       continue
     fi
     echo "Installing $package..."
-    gem install $package
+    GEM_HOME=~/.gen GEM_PATH=~/.gem gem install $package
   done
 }
 
@@ -223,7 +223,10 @@ pipPackages() {
   local alreadyInstalled=$INSTALLED_PIP_PACKAGES
 
   if command -v pyenv 1>/dev/null 2>&1; then
-    pyenv global 3.7.7
+    if ! pyenv global 3.7.7; then
+      pyenv install 3.7.7
+      pyenv global 3.7.7
+    fi
     eval "$(pyenv init -)"
   else
     echo "pyenv not installed. Aborting..."
