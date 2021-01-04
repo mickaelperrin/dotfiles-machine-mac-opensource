@@ -18,7 +18,14 @@ zstyle ':prezto:module:prompt' show-return-val 'yes'
 
 
 export DEFAULT_USER=$(whoami)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir dir_writable virtualenv vcs)
+
+function prompt_my_docker_host() {
+  if [[ $(docker context show) != 'default' ]]; then
+    p10k segment -f white -b blue -i "🐳" -t $(docker context show)
+  fi
+}
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir dir_writable virtualenv vcs my_docker_host)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time_joined)
 #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 #POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
