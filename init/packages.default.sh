@@ -52,11 +52,9 @@ BASE_CASK_PACKAGES=(
   alfred # effective launcher and much more
   1password
   1password-cli
-  docker-edge
   font-hack-nerd-font
   iterm2 # Terminal
   jetbrains-toolbox # phpstorm installer
-  vagrant
   gpg-suite
 )
 
