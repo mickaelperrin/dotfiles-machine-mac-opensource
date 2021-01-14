@@ -65,8 +65,6 @@ BASE_CASK_PACKAGES=(
 )
 
 TOOLS_CASK_PACKAGES=(
-  iterm2
-  jetbrains-toolbox
 )
 
 NPM_PACKAGES=(
