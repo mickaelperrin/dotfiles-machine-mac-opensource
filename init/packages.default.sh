@@ -21,9 +21,7 @@ BASE_PACKAGES=(
   gnu-sed # GNU version of sed
   gnu-tar # GNU version of tar
   go # Go languange
-  grc # Tag git repositories
   grep # GNU grep used in some scripts (ggrep)
-  highlight # syntax highlighter
   htop # Top processes
   jq # JSON processor
   md5deep
