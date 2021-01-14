@@ -9,12 +9,10 @@
 # Create symlinks
 - link:
     ~/.bin.base: bin
-    ~/.chunkwmrc: chunkwm/chunkwmrc.sh
     ~/.config/peco:
       path: peco
       create: true
     ~/.ideavimrc: vim/ideavimrc
-    ~/.khdrc: khd/khdrc
     ~/.macos: macos
     ~/.multitailrc: multitail/multitailrc
     ~/.percold.d: percol.d
