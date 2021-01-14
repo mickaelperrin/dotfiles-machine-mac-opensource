@@ -20,8 +20,6 @@ BASE_PACKAGES=(
   git-lfs # Large file storage for git
   gnu-sed # GNU version of sed
   gnu-tar # GNU version of tar
-
-  gpg # encryption of files required for blackbox
   go # Go languange
   grc # Tag git repositories
   grep # GNU grep used in some scripts (ggrep)
