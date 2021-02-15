@@ -10,6 +10,7 @@ beep_method:none
 markerline_color:red,black,reverse
 markerline_char:#
 markerline_timestamp:on
+scrollback_fullscreen_default:yes
 
 # NGINX
 # ----------------
