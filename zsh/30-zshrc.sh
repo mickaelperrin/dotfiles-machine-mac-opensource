@@ -1,7 +1,8 @@
-#!/usr/local/bin/zsh
+#!/opt/homebrew/bin/zsh
 DEBUG=false
 INSTALL=false
 PERF=false
+GDATE=/opt/homebrew/bin/gdate
 
 export ZSH_CONFIG_PATH=~/.zsh/includes
 
@@ -10,7 +11,7 @@ if $PERF || $DEBUG; then
 
   if $PERF; then
     PERF_FILE_PATH=~/zsh.perf.log
-    PERF_START=$(gdate +%s.%N)
+    PERF_START=$($GDATE +%s.%N)
     PERF_TOTAL_TIME=0
     PERF_LAST=0
     echo "Time :: Sourced file :: Source time :: Diff time" > "$PERF_FILE_PATH"
@@ -19,7 +20,7 @@ if $PERF || $DEBUG; then
 
   function source() {
     local file=$1
-    $PERF && local start=$(gdate +%s.%N)
+    $PERF && local start=$($GDATE +%s.%N)
 
     $DEBUG && echo "Sourcing $file..."
     if $DEBUG; then
@@ -29,7 +30,7 @@ if $PERF || $DEBUG; then
     fi
     builtin source "$file"
     if $PERF; then
-      local end=$(gdate +%s.%N)
+      local end=$($GDATE +%s.%N)
       echo "$((end-PERF_START)) :: $file :: $((end-start)) :: $((end-PERF_START-PERF_LAST)) " >> "$PERF_FILE_PATH"
       PERF_LAST=$((end-PERF_START))
     fi

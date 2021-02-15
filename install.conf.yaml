@@ -25,11 +25,12 @@
     ~/.zsh/includes:
       path: zsh/includes
       create: true
-    ~/.zlogout: zsh/includes/prezto.d/zlogout.sh
+    ~/.zlogin: zsh/40-zlogin.sh
+    ~/.zlogout: zsh/50-zlogout.sh
     ~/.zpreztorc: zsh/includes/prezto.d/zpreztorc.sh
-    ~/.zprofile: zsh/includes/prezto.d/zprofile.sh
-    ~/.zshenv: zsh/includes/prezto.d/zshenv.sh
-    ~/.zshrc: zsh/zshrc.sh
+    ~/.zprofile: zsh/20-zprofile.sh
+    ~/.zshenv: zsh/10-zshenv.sh
+    ~/.zshrc: zsh/30-zshrc.sh
     /tmp/init: init
 
 - shell:

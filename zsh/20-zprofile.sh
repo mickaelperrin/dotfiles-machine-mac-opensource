@@ -71,7 +71,13 @@ path+=(
   $NPM_PACKAGES/bin
 )
 
-fpath+="$HOME/.zsh/includes/completions.d"
+fpath+=(
+  "$HOME/.zsh/includes/completions.d"
+  "$HOME/.zsh/includes/completions.d/custom"
+  "$HOME/.zsh/includes/completions.d/shared"
+)
+
+#compdef _symfony symfony
 
 #
 # Less
