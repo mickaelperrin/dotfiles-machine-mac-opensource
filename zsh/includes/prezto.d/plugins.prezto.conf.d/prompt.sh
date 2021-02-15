@@ -25,7 +25,22 @@ function prompt_my_docker_host() {
   fi
 }
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir dir_writable virtualenv vcs my_docker_host)
+function prompt_my_current_arch() {
+  if [[ $(uname -m) != 'arm64' ]]; then
+    p10k segment -f white -b red -t $(uname -m)
+  fi
+}
+
+
+function prompt_my_os_icon() {
+  if [[ $(uname -m) != 'arm64' ]]; then
+    p10k segment -f white -b red -t "x86_64"
+  else
+    p10k segment -f white -b black -t $(print_icon 'APPLE_ICON')
+  fi
+}
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(my_os_icon context dir dir_writable virtualenv vcs my_docker_host )
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time_joined)
 #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 #POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
