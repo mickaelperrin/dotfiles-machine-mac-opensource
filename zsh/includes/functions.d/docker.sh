@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+docker_context_show() {
+  cat $HOME/.docker/config.json | jq .currentContext | tr -d '"'
+}
+
 dstop() { ask "STOP all Docker containers" && docker stop $(docker ps -a -q); } # Stop all containers
 drmall() { ask "REMOVE all Docker containers" && docker rm $(docker ps -a -q); } # Remove all containers
 alias drmf='ask "STOP & REMOVE all Docker containers" && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' # Stop and Remove all containers
