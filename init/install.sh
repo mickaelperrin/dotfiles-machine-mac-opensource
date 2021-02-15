@@ -38,8 +38,8 @@ brewInstall() {
 getInstalledPackages() {
   h1 "Get installed packages"
 
-  INSTALLED_PACKAGES=$(brew list -1)
-  INSTALLED_CASK_PACKAGES=$(brew cask list -1)
+  INSTALLED_PACKAGES=$(brew list --formula -1)
+  INSTALLED_CASK_PACKAGES=$(brew list --cask -1)
   INSTALLED_TAPS=$(brew tap)
   INSTALLED_GEMS=$(gem list --no-versions)
   INSTALLED_NPM_PACKAGES=$(ls -1 $(npm root -g))
@@ -101,7 +101,7 @@ brewInstallPackages() {
   local alreadyInstalled=$INSTALLED_PACKAGES
 
   if [ "$1" = 'cask' ]; then
-    cask=cask
+    cask="--cask"
     alreadyInstalled=$INSTALLED_CASK_PACKAGES
     shift
   fi
@@ -119,7 +119,7 @@ brewInstallPackages() {
     fi
     if ! echo "$alreadyInstalled" | grep -q "$package"; then
       echo "Installing brew package $package..."
-      brew $cask install $package
+      brew install $cask $package
     else
       echo "Package '$package' alreasy installed. Skipping..."
     fi
