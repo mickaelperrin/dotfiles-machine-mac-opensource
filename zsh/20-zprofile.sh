@@ -42,7 +42,7 @@ path+=(
   /usr/local/{bin,sbin}
 
   # Custom bin
-  $HOME/{bin,.bin}
+  $HOME/{bin,.bin,.bin.base}
 
   # Globally installed composer packages
   $HOME/.composer/vendor/bin
@@ -53,8 +53,9 @@ path+=(
   # Globally installed RVM
   $HOME/.rvm/bin
 
-  ## NPM / NODE
-  ${HOME}/.npm-packages/bin
+  ## NPM / NODE / YARN
+  $HOME/.npm-global/bin
+  $HOME/.yarn/bin
 )
 
 fpath+=(
