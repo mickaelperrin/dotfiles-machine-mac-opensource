@@ -1,9 +1,4 @@
-#
 # Executes commands at login pre-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 #
 # Browser
@@ -44,7 +39,6 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path+=(
 
-
   /usr/local/{bin,sbin}
 
   # Custom bin
@@ -59,16 +53,8 @@ path+=(
   # Globally installed RVM
   $HOME/.rvm/bin
 
-  # Set PHP 7.0 as default
-  /usr/local/opt/php@7.0/bin
-
   ## NPM / NODE
-  # Install npm packages globally without sudo on macOS and Linux
-  # https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md
-  ${HOME}/.npm-packages
-
-  # Globally installed NPM packages
-  $NPM_PACKAGES/bin
+  ${HOME}/.npm-packages/bin
 )
 
 fpath+=(
@@ -76,8 +62,6 @@ fpath+=(
   "$HOME/.zsh/includes/completions.d/custom"
   "$HOME/.zsh/includes/completions.d/shared"
 )
-
-#compdef _symfony symfony
 
 #
 # Less
