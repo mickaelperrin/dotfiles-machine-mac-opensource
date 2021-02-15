@@ -31,8 +31,8 @@ BASE_PACKAGES=(
   php
   pyenv
   p7zip
-  rmtrash # move file to macos trash
   tig # CLI git client
+  trash # move file to macos trash
   tree # Display directory tree in CLI
   terminal-notifier # Mac OS notifications from CLI
   unison # File synchronize used mainly to resolve performance issues with Docker
