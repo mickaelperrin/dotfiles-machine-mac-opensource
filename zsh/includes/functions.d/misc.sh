@@ -22,8 +22,6 @@ ssh-reagent () {
   return 0
 }
 
-mkcd() { mkdir -p $1 && cd $1 }
-
 function title {
     echo -ne "\033]0;"$*"\007"
 }
