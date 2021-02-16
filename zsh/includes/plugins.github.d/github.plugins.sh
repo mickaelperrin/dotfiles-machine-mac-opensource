@@ -46,8 +46,6 @@ githubPlugins=(
   # Auto switch create to virtual env
   MichaelAquilina/zsh-autoswitch-virtualenv
 
-  l-vo/ohmyzsh-sfbinary
-
   # Fzf wrapper around git commands
   wfxr/forgit
 )
