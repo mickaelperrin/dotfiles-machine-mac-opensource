@@ -4,7 +4,8 @@ INSTALL=false
 PERF=false
 GDATE=/opt/homebrew/bin/gdate
 
-export ZSH_CONFIG_PATH=~/.zsh/includes
+export ZSH_CONFIG_PATH="${HOME}/.zsh/includes"
+export ZSH_GITHUB_PLUGINS_PATH="${ZSH_CONFIG_PATH}/plugins.github.d"
 
 # Add profiling capabilities to source command
 if $PERF || $DEBUG; then
@@ -81,8 +82,8 @@ $INSTALL && loadIfExists requirements
 
 loadIfExists env
 loadIfExists functions
-loadIfExists zgen
-loadIfExists plugins.manual.conf
+loadIfExists zgen #change plugin manager here zinit or zgen
+loadIfExists plugins.custom
 loadIfExists zsh.conf
 loadIfExists alias
 

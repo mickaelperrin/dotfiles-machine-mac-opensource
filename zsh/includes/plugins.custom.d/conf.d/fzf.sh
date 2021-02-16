@@ -85,5 +85,5 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap 
 export FZF_COMPLETION_TRIGGER='@@'
 
 #TODO: bindkey not working ?
-bindkey '^O' fzf-completion
-bindkey '^P' $fzf_default_completion
+#bindkey '^O' fzf-completion
+#bindkey '^P' $fzf_default_completion

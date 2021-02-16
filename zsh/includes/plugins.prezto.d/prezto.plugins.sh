@@ -1,12 +1,3 @@
-#
-# Sets Prezto options.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-#
-# General
-#
 # The order matters.
 preztoPlugins=(
   # Sets general shell options and defines environment variables.
@@ -68,32 +59,6 @@ preztoPlugins=(
   'autosuggestions' # can be replaced by zgen tarruda/zsh-autosuggestions
 )
 
-ZSH_CONFIG_PREZTO_PLUGINS_PATH="${ZSH_CONFIG_PATH}/prezto.d/plugins.prezto.conf.d"
-
-function sourcePluginConfigFile() {
-  local configFilePath="${ZSH_CONFIG_PREZTO_PLUGINS_PATH}/$1$2.sh"
-  if [ -f $configFilePath ]; then
-    source "$configFilePath"
-  else
-    # Do not throw warning for config overrides
-    if [ -z $2 ]; then
-      $DEBUG && echo "  !!! Missing configuration file for prezto plugin $1..."
-      $DEBUG && echo "$configFilePath not found"
-    fi
-  fi
-}
-
-function loadPreztoPlugins() {
-  for plugin in "${preztoPlugins[@]}"
-  do
-    $DEBUG && echo "Loading prezto plugin: $plugin"
-    sourcePluginConfigFile "$plugin"
-    pmodload "$plugin"
-    sourcePluginConfigFile "$plugin" '.override'
-  done
-  # Prevent that modules get loaded twice
-  zstyle ':prezto:load' pmodule
-}
 
 # Set case-sensitivity for completion, history lookup, etc.
 zstyle ':prezto:*:*' case-sensitive 'no'
@@ -102,13 +67,7 @@ zstyle ':prezto:*:*' case-sensitive 'no'
 zstyle ':prezto:*:*' color 'yes'
 
 # Add additional directories to load prezto modules from
-zstyle ':prezto:load' pmodule-dirs ${ZSH_CONFIG_PATH}/prezto.d/plugins.prezto.custom.d
-
-# Set the Zsh modules to load (man zshmodules).
-#zstyle ':prezto:load' zmodule 'attr'
+zstyle ':prezto:load' pmodule-dirs ${ZSH_CONFIG_PATH}/plugins.prezto.d/custom.d
 
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':prezto:load' zfunction 'zargs' 'zmv'
-
-loadPreztoPlugins
-
