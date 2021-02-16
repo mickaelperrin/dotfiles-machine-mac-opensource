@@ -24,7 +24,7 @@ githubPlugins=(
   #chrissicool/zsh-256color
 
   # Highlight syntax in commands written in terminal
-  #zdharma/fast-syntax-highlighting # replaced by prezto
+  zdharma/fast-syntax-highlighting
 
   # fast/unobtrusive autosuggestions
   # should be loaded *after* syntax-highlighting
