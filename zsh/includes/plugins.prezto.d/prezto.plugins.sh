@@ -38,7 +38,7 @@ preztoPlugins=(
   'gpg'
 
   # Provides for an easier use of SSH by setting up ssh-agent.
-  'ssh'
+  #'ssh' #disabled less completions than default
 
   # Customize prompt
   'prompt'
