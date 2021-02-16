@@ -3,7 +3,7 @@
 /zsh/includes/functions.d/custom
 /zsh/includes/completions.d/shared
 /zsh/includes/functions.d/shared
-/zsh/includes/plugins.manual.conf.d/shared
+/zsh/includes/plugins.custom.d/conf.d/shared
 /zsh/includes/alias.d/shared
 /zsh/includes/env.d/custom
 /zsh/includes/alias.d/custom
@@ -95,3 +95,5 @@ fabric.properties
 .idea/sonarlint
 
 # End of https://www.gitignore.io/api/phpstorm
+
+*.zwc

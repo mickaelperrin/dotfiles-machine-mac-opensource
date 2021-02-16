@@ -4,6 +4,11 @@ INSTALL=false
 PERF=false
 GDATE=/opt/homebrew/bin/gdate
 
+if $PERF; then
+  module_path+=( "$HOME/.zinit/bin/zmodules/Src" )
+  zmodload zdharma/zplugin
+fi
+
 export ZSH_CONFIG_PATH="${HOME}/.zsh/includes"
 export ZSH_GITHUB_PLUGINS_PATH="${ZSH_CONFIG_PATH}/plugins.github.d"
 
@@ -78,13 +83,13 @@ function loadIfExists() {
 }
 
 
-$INSTALL && loadIfExists requirements
+$INSTALL && loadIfExists requirements || true
 
 loadIfExists env
 loadIfExists functions
-loadIfExists zgen #change plugin manager here zinit or zgen
+loadIfExists zinit #change plugin manager here zinit or zgen
 loadIfExists plugins.custom
 loadIfExists zsh.conf
 loadIfExists alias
 
-$PERF && displayPerfResults
+$PERF && displayPerfResults || true

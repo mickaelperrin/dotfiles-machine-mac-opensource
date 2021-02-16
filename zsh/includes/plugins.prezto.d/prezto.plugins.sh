@@ -3,9 +3,6 @@ preztoPlugins=(
   # Sets general shell options and defines environment variables.
   'environment'
 
-  # Provides for easier use of 256 colors and effects.
-  'spectrum'
-
   # Sets terminal window and tab titles.
   'terminal'
 
@@ -26,7 +23,7 @@ preztoPlugins=(
   'completion'
 
   # When you try to use a command that is not available locally, searches the package manager for a package offering that command and suggests the proper install command.
-  #'command-not-found' # deactivated too slow
+  'command-not-found'
 
   # Enhances the Git distributed version control system by providing aliases, functions and by exposing repository status information to prompts.
   'git'
@@ -45,9 +42,6 @@ preztoPlugins=(
 
   # Customize prompt
   'prompt'
-
-  # Integrates zsh-syntax-highlighting into Prezto.
-  'fast-syntax-highlighting'
 
   # Integrates zsh-history-substring-search into Prezto, which implements the Fish shell's history search feature, where the user can type in any part of a previously entered command and press up and down to cycle through matching commands.
   # Should be loaded *after* 'syntax-highlighting'

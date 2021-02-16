@@ -38,15 +38,15 @@ githubPlugins=(
   zdharma/zsh-diff-so-fancy
 
   # Improved zsh vim mode (bindkey -v) plugin
-  laurenkt/zsh-vimto
+  #laurenkt/zsh-vimto
 
   # Support for opening vi file at line vi file:123
-  nviennot/zsh-vim-plugin
+  #nviennot/zsh-vim-plugin
 
   # Auto switch create to virtual env
   MichaelAquilina/zsh-autoswitch-virtualenv
 
-  symfony/console
+  l-vo/ohmyzsh-sfbinary
 
   # Fzf wrapper around git commands
   wfxr/forgit

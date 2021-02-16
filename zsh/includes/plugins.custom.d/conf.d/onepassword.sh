@@ -9,4 +9,4 @@ alias opl='op-local'
 alias opled:='vi ~/.onepassword-tools.yml'
 alias opup='eval $(opsign.sh update)'
 
-opup
+eval $(opsign.sh update)

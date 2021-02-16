@@ -27,7 +27,7 @@
       create: true
     ~/.zlogin: zsh/40-zlogin.sh
     ~/.zlogout: zsh/50-zlogout.sh
-    ~/.zpreztorc: zsh/includes/prezto.d/zpreztorc.sh
+    ~/.zpreztorc: zsh/35-zpreztorc.sh
     ~/.zprofile: zsh/20-zprofile.sh
     ~/.zshenv: zsh/10-zshenv.sh
     ~/.zshrc: zsh/30-zshrc.sh
