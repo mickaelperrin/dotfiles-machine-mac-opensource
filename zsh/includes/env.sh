@@ -18,7 +18,13 @@ else
 fi
 
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+  if [[ ! -f "${PYENV_ROOT}/zpyenv.zsh" ]]; then
+    {
+      pyenv init - --no-rehash zsh
+      pyenv virtualenv-init - zsh
+    } >"${PYENV_ROOT}/zpyenv.zsh"
+  fi
+  source "${PYENV_ROOT}/zpyenv.zsh"
 fi
 
 ## NODE
@@ -28,7 +34,12 @@ unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 if command -v nodenv 1>/dev/null 2>&1; then
-  eval "$(nodenv init -)"
+  if [[ ! -f "${HOME}/.nodenv/nodenv.zsh" ]]; then
+    {
+      nodenv init - --no-rehash zsh
+    } >"${HOME}/.nodenv/nodenv.zsh"
+  fi
+  source "${HOME}/.nodenv/nodenv.zsh"
 fi
 
 ## Ruby
