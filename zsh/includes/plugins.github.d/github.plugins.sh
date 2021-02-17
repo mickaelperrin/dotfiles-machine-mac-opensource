@@ -48,4 +48,17 @@ githubPlugins=(
 
   # Fzf wrapper around git commands
   wfxr/forgit
+
+  #Aliases for exa (ls replacement)
+  DarrinTisdale/zsh-aliases-exa
+
+  # auto-closes, deletes and skips over matching delimiters
+  hlissner/zsh-autopair
+
+  # Yarn completion
+  g-plane/zsh-yarn-autocompletions
+
+  # Docker completions
+  greymd/docker-zsh-completion
+
 )

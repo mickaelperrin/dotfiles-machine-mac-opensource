@@ -52,6 +52,20 @@ zinit_prezto_fasd() {
   zinit snippet PZT::modules/fasd
 }
 
+zinit_github_g-plane/zsh-yarn-autocompletions() {
+  zinit ice atload"zpcdreplay" atclone'./zplug.zsh' wait lucid
+  zinit light g-plane/zsh-yarn-autocompletions
+}
+
+zinit_github_greymd/docker-zsh-completion() {
+  zinit lucid has'docker' for \
+  as'completion' is-snippet \
+  'https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker' \
+  \
+  as'completion' is-snippet \
+  'https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose' \
+}
+
 function sourcePluginConfigFile() {
   local configFilePath="$1/$2$3.sh"
   if [ -f $configFilePath ]; then
