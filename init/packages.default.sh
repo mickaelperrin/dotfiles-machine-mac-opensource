@@ -9,6 +9,7 @@ BASE_PACKAGES=(
   composer # PHP package manager
   coreutils # Required for gshred binary
   ctop # Docker containers top
+  dive # Docker image inspection tool
   docker-compose # Docker compose tool
   dos2unix
   fd # Simple fast alternative to find
@@ -26,6 +27,7 @@ BASE_PACKAGES=(
   jq # JSON processor
   md5deep
   multitail # Multiple tail -f used in scripts
+  mutagen-io/mutagen/mutagen-compose-beta #File synchronisation for docker volumes (replaces unison)
   node
   nodenv
   peco # Fuzzy filter used in many custom bash scripts
@@ -38,7 +40,6 @@ BASE_PACKAGES=(
   trash # move file to macos trash
   tree # Display directory tree in CLI
   terminal-notifier # Mac OS notifications from CLI
-  unison # File synchronize used mainly to resolve performance issues with Docker
   vim # Text editor
   wget # CLI downloader
   xmlstarlet # CLI file editor used in wordpress generator
