@@ -16,7 +16,7 @@ BASE_PACKAGES=(
   fswatch
   fzf # fuzzy find tool used in custom scripts
   git
-  gnu-getopt
+  gnu-getopt #required for some scripts
   git-lfs # Large file storage for git
   gnu-sed # GNU version of sed
   gnu-tar # GNU version of tar
@@ -25,12 +25,15 @@ BASE_PACKAGES=(
   htop # Top processes
   jq # JSON processor
   md5deep
+  multitail # Multiple tail -f used in scripts
   node
   nodenv
   peco # Fuzzy filter used in many custom bash scripts
   php
+  pwgen # password generator
   pyenv
   p7zip
+  svn # required by zinit ZSH plugin manager
   tig # CLI git client
   trash # move file to macos trash
   tree # Display directory tree in CLI
@@ -55,7 +58,7 @@ BASE_CASK_PACKAGES=(
   font-hack-nerd-font
   iterm2 # Terminal
   jetbrains-toolbox # phpstorm installer
-  gpg-suite
+  gpg-suite-no-mail
 )
 
 TOOLS_CASK_PACKAGES=(
@@ -69,6 +72,8 @@ PIP_PACKAGES=(
   onepassword-local-search
   onepassword-tools
   pyotp
+  virtualenv
+  wakatime
 )
 
 GEM_PACKAGES=(
