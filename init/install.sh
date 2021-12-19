@@ -41,10 +41,10 @@ getInstalledPackages() {
   INSTALLED_PACKAGES=$(brew list --formula -1)
   INSTALLED_CASK_PACKAGES=$(brew list --cask -1)
   INSTALLED_TAPS=$(brew tap)
-  INSTALLED_GEMS=$(gem list --no-versions)
-  INSTALLED_NPM_PACKAGES=$(ls -1 $(npm root -g))
-  INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3)
-  INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}')
+  INSTALLED_GEMS=$(gem list --no-versions || true)
+  INSTALLED_NPM_PACKAGES=$(ls -1 $(npm root -g || true))
+  INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3 || true)
+  INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}' || true)
 
   echo "Installed brew taps:"
   echo "$INSTALLED_TAPS"
