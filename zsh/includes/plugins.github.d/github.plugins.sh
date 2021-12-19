@@ -11,9 +11,6 @@ githubPlugins=(
   # Track terminal activity in wakatime
   wbingli/zsh-wakatime
 
-  # Show alias if use a command which is aliased
-  djui/alias-tips
-
   # posts desktop notifications when a command terminates
   marzocchi/zsh-notify
 
@@ -62,3 +59,10 @@ githubPlugins=(
   greymd/docker-zsh-completion
 
 )
+
+if [[ "$(uname -m)" == "arm64" ]]; then
+githubPlugins+=(
+  # Show alias if use a command which is aliased
+  djui/alias-tips
+)
+fi

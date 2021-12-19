@@ -5,7 +5,7 @@ PERF=false
 GDATE=/opt/homebrew/bin/gdate
 
 if $PERF; then
-  module_path+=( "$HOME/.zinit/bin/zmodules/Src" )
+  module_path+=( "$HOME/.zinit.$(uname -m)/bin/zmodules/Src" )
   zmodload zdharma/zplugin
 fi
 

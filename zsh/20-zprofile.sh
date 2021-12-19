@@ -39,10 +39,8 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path+=(
 
-  /usr/local/{bin,sbin}
-
   # Custom bin
-  $HOME/{bin,.bin,.bin.base}
+  $HOME/{bin,.bin,.bin.base,.bin.shared,.bin.custom}
 
   # Globally installed composer packages
   $HOME/.composer/vendor/bin
@@ -52,11 +50,12 @@ path+=(
 
   # Globally installed RVM
   $HOME/.rvm/bin
-
-  ## NPM / NODE / YARN
-  $HOME/.npm-global/bin
-  $HOME/.yarn/bin
 )
+
+if [[ "$(uname -m)" == "arm64" ]]; then
+  path=(/opt/homebrew/bin $path)
+fi
+
 
 fpath+=(
   "$HOME/.zsh/includes/completions.d"
@@ -78,3 +77,51 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+
+# Should be defined *before* prezto
+export POWERLEVEL9K_MODE='nerdfont-complete'
+
+## PYTHON
+export PIP_REQUIRE_VIRTUALENV=true
+export WORKON_HOME=$HOME/.virtualenvs.$(uname -m)
+[ -d $WORKON_HOME ] || mkdir -p $WORKON_HOME
+export VIRTUALENVWRAPPER_VIRTUALENV=$(brew --prefix)/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+
+# Manage PYENV on M1 Mac and rosetta
+export PYENV_ROOT="$(pyenv root).$(uname -m)"
+[ -d $PYENV_ROOT ] || mkdir -p $PYENV_ROOT
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  if [[ ! -f "${PYENV_ROOT}/zpyenv.zsh" ]]; then
+    {
+      pyenv init - --no-rehash zsh
+      pyenv virtualenv-init - zsh
+    } >"${PYENV_ROOT}/zpyenv.zsh"
+  fi
+  source "${PYENV_ROOT}/zpyenv.zsh"
+fi
+
+## NODE
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+export NODENV_ROOT="${HOME}/.nodenv.$(uname -m)"
+[ -d $NODENV_ROOT ] || mkdir -p $NODENV_ROOT
+if command -v nodenv 1>/dev/null 2>&1; then
+  if [[ ! -f "${NODENV_ROOT}/nodenv.zsh" ]]; then
+    {
+      nodenv init - --no-rehash zsh
+    } >"${NODENV_ROOT}/nodenv.zsh"
+  fi
+  source "${NODENV_ROOT}/nodenv.zsh"
+fi
+
+## Ruby
+export GEM_HOME="$HOME/.gem.$(uname -m)"
+
+## Parallel
+export PARALLEL_HOME="$HOME/.parallel.$(uname -m)"
+export PARALLEL_SHELL=$(which zsh)
