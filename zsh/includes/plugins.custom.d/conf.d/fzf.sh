@@ -44,7 +44,11 @@ _gen_fzf_default_opts() {
   #  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
   #"
 
+if [ "$ITERM_PROFILE" = 'Light' ]; then
+  export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=\"fg:#000000,hl:#00FF00,fg+:#FF0000,bg+:#00FF00,hl+:#FF0000,info:#222222,prompt:#333333,pointer:#cc0000,marker:#111111,spinner:#61afef,header:#333333\""
+else
   export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=\"hl:#00FF00,fg+:#111111,bg+:#00FF00,hl+:#FF0000,info:#98c379,prompt:#83d267,pointer:#cc0000,marker:#000000,spinner:#61afef,header:#83d267\""
+fi
 }
 _gen_fzf_default_opts
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --no-sort --reverse --prompt='>> ' --inline-info --no-height --exact"
