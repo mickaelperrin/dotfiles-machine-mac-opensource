@@ -1,7 +1,7 @@
 #compdef drupal
 
 function drupalcli {
-  docker exec -u www-data ${PROJECT_NAME_SANITISED}_fpm_1 bash -c "cd /src/web;CMDLINE_CONTENTS=\"$CMDLINE_CONTENTS\" CMDLINE_CURSOR_INDEX=\"$CMDLINE_CURSOR_INDEX\"  /src/vendor/bin/drupal --root=/src/web --uri=${PROJECT_URL} _completion --shell-type=zsh "
+  docker exec -u www-data ${PROJECT_NAME_SANITISED}-fpm-1 bash -c "cd /src/web;CMDLINE_CONTENTS=\"$CMDLINE_CONTENTS\" CMDLINE_CURSOR_INDEX=\"$CMDLINE_CURSOR_INDEX\"  /src/vendor/bin/drupal --root=/src/web --uri=${PROJECT_URL} _completion --shell-type=zsh "
 }
 
 function _drupal_b04218f2c52f337f_complete {
