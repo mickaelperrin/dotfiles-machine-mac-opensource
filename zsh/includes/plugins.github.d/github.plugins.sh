@@ -21,7 +21,7 @@ githubPlugins=(
   #chrissicool/zsh-256color
 
   # Highlight syntax in commands written in terminal
-  zdharma/fast-syntax-highlighting
+  zdharma-continuum/fast-syntax-highlighting
 
   # fast/unobtrusive autosuggestions
   # should be loaded *after* syntax-highlighting
@@ -32,7 +32,7 @@ githubPlugins=(
   kutsan/zsh-system-clipboard
 
   # Good-lookin' diffs. Actually… nah… The best-lookin' diffs.
-  zdharma/zsh-diff-so-fancy
+  zdharma-continuum/zsh-diff-so-fancy
 
   # Improved zsh vim mode (bindkey -v) plugin
   #laurenkt/zsh-vimto

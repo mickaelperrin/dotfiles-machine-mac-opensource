@@ -2,7 +2,7 @@ ZINIT_ROOT=$HOME/.zinit.$(uname -m)
 if [[ ! -f $ZINIT_ROOT/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
     command mkdir -p "$ZINIT_ROOT" && command chmod g-rwX "$ZINIT_ROOT"
-    command git clone https://github.com/zdharma/zinit "$ZINIT_ROOT/bin" && \
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_ROOT/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
@@ -12,7 +12,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
-zinit light zinit-zsh/z-a-submods
+zinit light zdharma-continuum/zinit-annex-submods
 export ZSH_PLUGIN_MANAGER="zinit"
 
 export ZSH_GITHUB_PLUGINS_PATH="${ZSH_CONFIG_PATH}/plugins.github.d"

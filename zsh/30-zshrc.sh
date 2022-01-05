@@ -6,7 +6,7 @@ GDATE=/opt/homebrew/bin/gdate
 
 if $PERF; then
   module_path+=( "$HOME/.zinit.$(uname -m)/bin/zmodules/Src" )
-  zmodload zdharma/zplugin
+  zmodload zdharma-continuum/zplugin
 fi
 
 export ZSH_CONFIG_PATH="${HOME}/.zsh/includes"
