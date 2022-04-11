@@ -30,8 +30,8 @@ cleanup() {
 }
 
 function op_signin() {
-  TEAM_SESSION_KEY=$(op signin $OP_TEAM_SHORTHAND --output=raw)
-  MY_SESSION_KEY=$(op signin my --output=raw)
+  TEAM_SESSION_KEY=$(op signin --account $OP_TEAM_SHORTHAND --raw)
+  MY_SESSION_KEY=$(op signin --account my --raw)
 }
 
 function op_signout() {
