@@ -223,9 +223,9 @@ pipPackages() {
   local alreadyInstalled=$INSTALLED_PIP_PACKAGES
 
   if command -v pyenv 1>/dev/null 2>&1; then
-    if ! pyenv global 3.7.7; then
-      pyenv install 3.7.7
-      pyenv global 3.7.7
+    if ! pyenv global 3.9.11; then
+      pyenv install 3.9.11
+      pyenv global 3.9.11
     fi
     eval "$(pyenv init -)"
   else
