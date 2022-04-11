@@ -56,7 +56,7 @@ function get1PasswordSession() {
   if [[ -z "$OP_SESSIONSHARING_FILE" ]]; then
     OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
   fi
-  if [[ "$(isAuthenticatedOnGPG)" == "1" ]] && [[ ! -z "$OP_SESSIONSHARING_FILE" ]] && [[ -f "$OP_SESSIONSHARING_FILE" ]]; then
+  if [[ "$(isAuthenticatedOnGPG)" == "1" ]] && [[ ! -z "$OP_SESSIONSHARING_FILE" ]] && [[ -f "$OP_SESSIONSHARING_FILE" ]] && [[ $(gstat --printf="%s" $OP_SESSIONSHARING_FILE) != "0" ]]; then
     gpg --quiet --decrypt "$OP_SESSIONSHARING_FILE"
   fi
 }
