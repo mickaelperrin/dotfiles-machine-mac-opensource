@@ -4,7 +4,9 @@
 alias oplogin='eval $(opsign.sh in)'
 alias oplogout='eval $(opsign.sh out)'
 
-alias assh='op-tools ssh-add'
+assh() {
+  op-tools ssh-add --format="{uuid}    FROM: {Local user}@{Local host}   >>   TO:{Remote user}@{Hostname}" "$@" id_rsa
+}
 alias opmapping="op-local list --format=\"{uuid}|{UUID}|{LASTPASS_ID}|{title}\" | column -t -s'|' | peco"
 alias opl='op-local'
 alias opled:='vi ~/.onepassword-tools.yml'
