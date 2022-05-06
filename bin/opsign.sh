@@ -30,8 +30,8 @@ cleanup() {
 }
 
 function op_signin() {
-  TEAM_SESSION_KEY=$(op signin --account $OP_TEAM_SHORTHAND --raw)
-  MY_SESSION_KEY=$(op signin --account my --raw)
+  TEAM_SESSION_KEY=$(op signin --account $OP_TEAM_SHORTHAND -f --raw)
+  MY_SESSION_KEY=$(op signin --account my -f --raw)
 }
 
 function op_signout() {
@@ -39,13 +39,17 @@ function op_signout() {
     /bin/rm "$OP_SESSIONSHARING_FILE"
   fi
   op signout
-  echo "export OP_SESSION_${OP_TEAM_SHORTHAND}="
-  echo "export OP_SESSION_my="
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)="
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)="
+}
+
+function getUserUUIDFromShortHand() {
+  jq  ".accounts[]|select(.shorthand==\"$1\") | .userUUID" < ~/.op/config
 }
 
 function persistSessionKeys() {
-  echo "export OP_SESSION_${OP_TEAM_SHORTHAND}=${TEAM_SESSION_KEY}"
-  echo "export OP_SESSION_my=${MY_SESSION_KEY}"
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)=${TEAM_SESSION_KEY}"
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=${MY_SESSION_KEY}"
 }
 
 function getSessionSharingFile() {
