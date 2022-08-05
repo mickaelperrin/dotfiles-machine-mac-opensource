@@ -45,12 +45,12 @@ function op_signout() {
 }
 
 function getUserUUIDFromShortHand() {
-  jq  ".accounts[]|select(.shorthand==\"$1\") | .userUUID" < ~/.op/config
+  jq  ".accounts[]|select(.shorthand==\"$1\") | .userUUID" < ~/.op/config | tr -d '"'
 }
 
 function persistSessionKeys() {
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)=${TEAM_SESSION_KEY}"
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=${MY_SESSION_KEY}"
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)=\"${TEAM_SESSION_KEY}\""
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=\"${MY_SESSION_KEY}\""
 }
 
 function getSessionSharingFile() {
