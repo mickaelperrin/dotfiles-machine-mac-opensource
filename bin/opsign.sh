@@ -22,6 +22,7 @@ function checks() {
 
   if [[ -z "$OP_SESSIONSHARING_FILE" ]]; then
     mktemp -t opsessions > /dev/null
+    OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
   fi
 }
 
