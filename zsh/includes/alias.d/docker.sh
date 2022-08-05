@@ -11,3 +11,4 @@ alias dex="docker exec -i -t" # Execute interactive container, e.g., $dex base /
 alias drm="docker rm -fv" #
 alias ds="sudo /etc/init.d/docker-" #
 alias drun="docker run -it --rm"
+alias drmf='ask "STOP & REMOVE all Docker containers" && docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' # Stop and Remove all containers
