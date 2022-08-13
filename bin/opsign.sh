@@ -4,6 +4,10 @@ TEAM_SESSION_KEY=
 MY_SESSION_KEY=
 ACTION=${1:-in}
 
+function has_personal_account() {
+  test $(cat ~/.op/config  | jq '.accounts[] | select(.shorthand == "my") | .shorthand' | tr -d '"') = "my" && return 0 || return 1
+}
+
 function checks() {
   if ! which op > /dev/null; then
     echo "1Password CLI (op) is not installed."
@@ -32,7 +36,9 @@ cleanup() {
 
 function op_signin() {
   TEAM_SESSION_KEY=$(op signin --account $OP_TEAM_SHORTHAND -f --raw)
-  MY_SESSION_KEY=$(op signin --account my -f --raw)
+  if has_personal_account; then
+    MY_SESSION_KEY=$(op signin --account my -f --raw)
+  fi
 }
 
 function op_signout() {
@@ -41,7 +47,9 @@ function op_signout() {
   fi
   op signout
   echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)="
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)="
+  if has_personal_account; then
+    echo "export OP_SESSION_$(getUserUUIDFromShortHand my)="
+  fi
 }
 
 function getUserUUIDFromShortHand() {
@@ -50,7 +58,9 @@ function getUserUUIDFromShortHand() {
 
 function persistSessionKeys() {
   echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)=\"${TEAM_SESSION_KEY}\""
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=\"${MY_SESSION_KEY}\""
+  if has_personal_account; then
+    echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=\"${MY_SESSION_KEY}\""
+  fi
 }
 
 function getSessionSharingFile() {
