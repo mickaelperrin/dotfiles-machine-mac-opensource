@@ -5,7 +5,7 @@ MY_SESSION_KEY=
 ACTION=${1:-in}
 
 function has_personal_account() {
-  test $(cat ~/.op/config  | jq '.accounts[] | select(.shorthand == "my") | .shorthand' | tr -d '"') = "my" && return 0 || return 1
+  test $(cat ~/.op/config  | jq '.accounts|map(select(.shorthand=="my"))|length') = "1" && return 0 || return 1
 }
 
 function checks() {
