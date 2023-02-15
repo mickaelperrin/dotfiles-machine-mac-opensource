@@ -3,9 +3,17 @@ set -e
 TEAM_SESSION_KEY=
 MY_SESSION_KEY=
 ACTION=${1:-in}
+OP_CONFIG_FILE=$HOME/.config/op/config
+if [ ! -f "$OP_CONFIG_FILE" ]; then
+  OP_CONFIG_FILE=$HOME/.op/config
+  if [ ! -f "$OP_CONFIG_FILE" ]; then
+    echo "Unable to locate OP config file ~/.op/config"
+    exit 1
+  fi
+fi
 
 function has_personal_account() {
-  test $(cat ~/.op/config  | jq '.accounts|map(select(.shorthand=="my"))|length') = "1" && return 0 || return 1
+  test "$(cat $OP_CONFIG_FILE  | jq '.accounts|map(select(.shorthand=="my"))|length')" = "1" && return 0 || return 1
 }
 
 function checks() {
@@ -31,11 +39,11 @@ function checks() {
 }
 
 cleanup() {
-  find ${TMPDIR:-/tmp} -maxdepth 1 -name "opsessions.*" -print0 | xargs -0 ls -1 -t | tail -n +2 | xargs /bin/rm
+  find "${TMPDIR:-/tmp}" -maxdepth 1 -name "opsessions.*" -print0 | xargs -0 ls -1 -t | tail -n +2 | xargs /bin/rm
 }
 
 function op_signin() {
-  TEAM_SESSION_KEY=$(op signin --account $OP_TEAM_SHORTHAND -f --raw)
+  TEAM_SESSION_KEY=$(op signin --account "$OP_TEAM_SHORTHAND" -f --raw)
   if has_personal_account; then
     MY_SESSION_KEY=$(op signin --account my -f --raw)
   fi
@@ -46,38 +54,39 @@ function op_signout() {
     /bin/rm "$OP_SESSIONSHARING_FILE"
   fi
   op signout
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)="
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand "$OP_TEAM_SHORTHAND")="
   if has_personal_account; then
     echo "export OP_SESSION_$(getUserUUIDFromShortHand my)="
   fi
 }
 
 function getUserUUIDFromShortHand() {
-  jq  ".accounts[]|select(.shorthand==\"$1\") | .userUUID" < ~/.op/config | tr -d '"'
+  jq  ".accounts[]|select(.shorthand==\"$1\") | .userUUID" < "$OP_CONFIG_FILE" | tr -d '"'
 }
 
 function persistSessionKeys() {
-  echo "export OP_SESSION_$(getUserUUIDFromShortHand $OP_TEAM_SHORTHAND)=\"${TEAM_SESSION_KEY}\""
+  echo "export OP_SESSION_$(getUserUUIDFromShortHand "$OP_TEAM_SHORTHAND")=\"${TEAM_SESSION_KEY}\""
   if has_personal_account; then
     echo "export OP_SESSION_$(getUserUUIDFromShortHand my)=\"${MY_SESSION_KEY}\""
   fi
 }
 
 function getSessionSharingFile() {
-  find ${TMPDIR:-/tmp} -maxdepth 1 -name "opsessions.*" -print0 | xargs -0 ls -1 -t | head -1
+  find "${TMPDIR:-/tmp}" -maxdepth 1 -name "opsessions.*" -print0 | xargs -0 ls -1 -t | head -1
 }
 
 function get1PasswordSession() {
   if [[ -z "$OP_SESSIONSHARING_FILE" ]]; then
     OP_SESSIONSHARING_FILE=$(getSessionSharingFile)
   fi
-  if [[ "$(isAuthenticatedOnGPG)" == "1" ]] && [[ ! -z "$OP_SESSIONSHARING_FILE" ]] && [[ -f "$OP_SESSIONSHARING_FILE" ]] && [[ $(gstat --printf="%s" $OP_SESSIONSHARING_FILE) != "0" ]]; then
+
+  if $(isAuthenticatedOnGPG) && [[ -n "$OP_SESSIONSHARING_FILE" ]] && [[ -f "$OP_SESSIONSHARING_FILE" ]] && [[ $(gstat --printf="%s" "$OP_SESSIONSHARING_FILE") != "0" ]]; then
     gpg --quiet --decrypt "$OP_SESSIONSHARING_FILE"
   fi
 }
 
 function isAuthenticatedOnGPG() {
-  gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null | awk "BEGIN{CACHED=0} /^S KEYINFO $MY_GPG_PRIVATE_KEYGRIP/ {if(\$7==1){CACHED=1}} END{if(\$0!=\"\"){print CACHED} else {print \"none\"}}"
+  gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null | awk "BEGIN{CACHED=0} /^S KEYINFO $MY_GPG_PRIVATE_KEYGRIP/ {if(\$7==1){CACHED=1}} END{if(\$0!=\"\"){print CACHED} else {print \"none\"}}" > /dev/null
 }
 
 # Only exec if not sourced
