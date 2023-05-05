@@ -1,9 +1,9 @@
 gpip(){
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+   PIP_REQUIRE_VIRTUALENV="" python -m pip "$@"
 }
 
 gpip3(){
-   PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+   PIP_REQUIRE_VIRTUALENV="" python3 -m pip "$@"
 }
 
 syspip(){
