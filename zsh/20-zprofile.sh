@@ -90,7 +90,11 @@ export VIRTUALENVWRAPPER_VIRTUALENV=$(brew --prefix)/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 
 # Manage PYENV on M1 Mac and rosetta
-export PYENV_ROOT="$(pyenv root).$(uname -m)"
+if [[ "$(pyenv root)" == *"$(uname -m)"* ]]; then
+  export PYENV_ROOT="$(pyenv root)"
+else
+  export PYENV_ROOT="$(pyenv root).$(uname -m)"
+fi
 [ -d $PYENV_ROOT ] || mkdir -p $PYENV_ROOT
 
 if command -v pyenv 1>/dev/null 2>&1; then
