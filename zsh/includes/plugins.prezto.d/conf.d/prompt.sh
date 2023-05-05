@@ -20,7 +20,7 @@ zstyle ':prezto:module:prompt' show-return-val 'yes'
 export DEFAULT_USER=$(whoami)
 
 function prompt_my_docker_host() {
-  if [[ $(docker_context_show) != 'default' ]]; then
+  if [ ! -z "$(docker_context_show)" ] && [[ $(docker_context_show) != 'default' ]]; then
     p10k segment -f $POWERLEVEL9K_FG_DARK_BG_COLOR -b blue -i "🐳" -t $(docker_context_show)
   fi
 }
