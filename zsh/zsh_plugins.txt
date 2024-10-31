@@ -1,0 +1,65 @@
+#!/bin/zsh
+
+### Completions
+# zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
+zsh-users/zsh-completions path:src kind:fpath
+
+# This is the recommended plugin for handling compinit and setting completion zstyles.
+# It's designed to handle all the complexity of the Zsh completion system so the user
+# doesn't have to.
+mattmc3/ez-compinit
+
+### Should be loaded first
+
+# Prompt
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+romkatv/powerlevel10k
+
+# Navigation
+b4b4r07/enhancd
+$ZSH_CUSTOM_CONFIG_PATH/fzf.sh
+$ZSH_CUSTOM_CONFIG_PATH/misc.sh
+
+# Autoenv
+Tarrasch/zsh-autoenv
+
+# Virtualenv
+MichaelAquilina/zsh-autoswitch-virtualenv
+
+# Aliases
+$ALIASES
+
+# Functions
+$FUNCTIONS
+#kaplanelad/shellfirm path:shell-plugins
+
+# Syntax highlighting
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# OH my ZSH
+#getantidote/use-omz
+#ohmyzsh/ohmyzsh path:plugins/tmux
+#ohmyzsh/ohmyzsh path:plugins/composer
+
+# Prezto
+#getantidote/use-prezto
+#sorin-ionescu/prezto path:modules/gpg
+#sorin-ionescu/prezto path:modules/directory
+#sorin-ionescu/prezto path:modules/history
+
+# History
+larkery/zsh-histdb
+
+# TMUX
+
+
+# Environment
+$ENVS
+
+# Dev
+ariaieboy/laravel-sail
+
+### Final Plugins
+# These popular core plugins should be loaded at the end
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search

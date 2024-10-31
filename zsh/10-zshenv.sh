@@ -1,9 +1,4 @@
-#
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+#!/opt/homebrew/bin/zsh
 
 # Overwrite default path generated with /usr/libexec/path_helper -s in /etc/profile
 # To remove brew

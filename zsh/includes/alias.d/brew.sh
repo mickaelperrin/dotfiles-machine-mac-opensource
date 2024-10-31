@@ -1,7 +1,0 @@
-alias bsr='brew services restart'
-alias bsstop='brew services stop'
-alias bsstart='brew services start'
-alias brews='brew list -1'
-alias bubo='brew update && brew outdated'
-alias bubc='brew upgrade && brew cleanup'
-alias bubu='bubo && bubc'

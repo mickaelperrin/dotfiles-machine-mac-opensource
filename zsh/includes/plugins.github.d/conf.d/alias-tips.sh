@@ -1,2 +1,0 @@
-export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
-export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_ ll vi"

@@ -4,40 +4,31 @@
 
 # Remove dead links pointing to dotbot
 - clean:
-  - '~'
+    - '~'
 
 # Create symlinks
 - link:
     ~/.bin.base: bin
-    ~/.config/peco:
-      path: peco
-      create: true
     ~/.ideavimrc: vim/ideavimrc
-    ~/.macos: macos
     ~/.multitailrc: multitail/multitailrc
-    ~/.percold.d: percol.d
     ~/.ssh/config:
       path: ssh/config
       create: true
-    ~/.vim: vim/vim
     ~/.vimrc: vim/vimrc
-    ~/.vimrc.d: vim/vimrc.d
     ~/.zsh/includes:
       path: zsh/includes
       create: true
     ~/.zlogin: zsh/40-zlogin.sh
     ~/.zlogout: zsh/50-zlogout.sh
-    ~/.zpreztorc: zsh/35-zpreztorc.sh
     ~/.zprofile: zsh/20-zprofile.sh
     ~/.zshenv: zsh/10-zshenv.sh
     ~/.zshrc: zsh/30-zshrc.sh
+    ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
     /tmp/init: init
 
 - shell:
-
-  - command: /bin/bash /tmp/init/install.sh
-    description: Install script
-    stdout: true
-    stderr: true
-    stdin: true
-
+    - command: /bin/bash /tmp/init/install.sh
+      description: Install script
+      stdout: true
+      stderr: true
+      stdin: true
