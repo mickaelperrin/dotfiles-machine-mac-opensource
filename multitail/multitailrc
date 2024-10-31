@@ -107,3 +107,11 @@ cs_re_s:201:^(mail[[:space:]]+\|)
 # -----------------
 colorscheme:rsync
 cs_re_s:161:^(rsync[[:space:]]+\|)
+
+# MYSQL
+# --------
+colorscheme:mysql
+
+# EMAIL
+# --------
+colorscheme:email
