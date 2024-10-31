@@ -6,20 +6,23 @@ BASE_TAPS=(
   homebrew/cask
   homebrew/cask-fonts
   homebrew/cask-versions
+  kaplanelad/tap # shellfirm
 )
 
 BASE_PACKAGES=(
+  blackbox # Manage secrets in git
   composer # PHP package manager
+  clickup # Project maangament tool
   coreutils # Required for gshred binary
   ctop # Docker containers top
-  dive # Docker image inspection tool
   docker-compose # Docker compose tool
-  dos2unix
+  dos2unix # Convert text format
   fd # Simple fast alternative to find
-  findutils
-  fswatch
+  findutils # find xargs locate
+  fswatch # file change monitor
   fzf # fuzzy find tool used in custom scripts
   git
+  git-filter-repo # Remove files from git history
   gnu-getopt #required for some scripts
   git-lfs # Large file storage for git
   gnu-sed # GNU version of sed
@@ -28,24 +31,24 @@ BASE_PACKAGES=(
   grep # GNU grep used in some scripts (ggrep)
   htop # Top processes
   jq # JSON processor
-  md5deep
+  lnav # Log file viewer
+  md5deep # md5 recursive
   multitail # Multiple tail -f used in scripts
   mutagen-io/mutagen/mutagen-compose-beta #File synchronisation for docker volumes (replaces unison)
+  mysql-client
   node
   nodenv
-  peco # Fuzzy filter used in many custom bash scripts
   php
   pwgen # password generator
   pyenv
   p7zip
-  svn # required by zinit ZSH plugin manager
+  shellfirm # Intercept risky commands
   tig # CLI git client
   trash # move file to macos trash
   tree # Display directory tree in CLI
   terminal-notifier # Mac OS notifications from CLI
   vim # Text editor
   wget # CLI downloader
-  xmlstarlet # CLI file editor used in wordpress generator
   yarn # Faster NPM clone by Facebook
   yq
   zsh # Main shell
@@ -73,15 +76,11 @@ NPM_PACKAGES=(
 
 PIP_PACKAGES=(
   pygments
-  onepassword-local-search
-  onepassword-tools
   pyotp
   virtualenv
-  wakatime
 )
 
 GEM_PACKAGES=(
-  colorls
 )
 
 COMPOSER_PACKAGES=(
