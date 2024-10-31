@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+
 BASE_TAPS=(
   homebrew/core
   homebrew/cask

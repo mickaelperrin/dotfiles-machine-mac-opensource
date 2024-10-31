@@ -9,18 +9,21 @@ INSTALLED_NPM_PACKAGES=
 INSTALLED_PIP_PACKAGES=
 export CURL_SSL_BACKEND=secure-transport
 
-if [ -e $SCRIPT_DIR/packages.sh ]; then
-  . $SCRIPT_DIR/packages.sh ]
+if [ -e "${SCRIPT_DIR}/packages.sh" ]; then
+  # shellcheck disable=SC1090
+  . "${SCRIPT_DIR}/packages.sh"
 else
-  . $SCRIPT_DIR/packages.default.sh ]
+  # shellcheck source=./packages.default.sh
+  . "${SCRIPT_DIR}/packages.default.sh"
 fi
 
 
 askForPackagesUpdate() {
-  read -p "Do you want to install/update software ? [Y/n] " answer
+  local answer
+  read -rp "Do you want to install/update software ? [Y/n] " answer
   case ${answer:0:1} in
     n|N) exit ;;
-    *) continue;;
+    *) return;;
   esac
 }
 
@@ -42,7 +45,7 @@ getInstalledPackages() {
   INSTALLED_CASK_PACKAGES=$(brew list --cask -1)
   INSTALLED_TAPS=$(brew tap)
   INSTALLED_GEMS=$(gem list --no-versions || true)
-  INSTALLED_NPM_PACKAGES=$(ls -1 $(npm root -g || true))
+  INSTALLED_NPM_PACKAGES=$(ls -1 "$(npm root -g || true)")
   INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3 || true)
   INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}' || true)
 
@@ -79,8 +82,7 @@ getInstalledPackages() {
 brewTaps() {
 
   h1 "Install brew taps"
-
-  local taps=("${@}")
+  local taps=("${@}") tap
 
   for tap in "${taps[@]}"; do
     if [ "$tap" = "" ]; then
@@ -88,7 +90,7 @@ brewTaps() {
     fi
     if ! echo "$INSTALLED_TAPS" | grep -q "^$tap$"; then
       echo "Installing tap $tap..."
-      brew tap $tap
+      brew tap "$tap"
     else
       echo "Tap '$tap' alreasy installed. Skipping..."
     fi
@@ -119,7 +121,8 @@ brewInstallPackages() {
     fi
     if ! echo "$alreadyInstalled" | grep -q "$package"; then
       echo "Installing brew package $package..."
-      brew install $cask $package
+      brew install $cask "$package"
+      age
     else
       echo "Package '$package' alreasy installed. Skipping..."
     fi
@@ -139,11 +142,11 @@ composerPackages() {
 
   for package in "${packages[@]}"; do
     if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "$package";  then
-      [ $package = '' ] || echo "$package already installed"
+      [ "$package" = '' ] || echo "$package already installed"
       continue
     fi
     echo "Installing $package..."
-    composer global require $package
+    composer global require "$package"
   done
 }
 
@@ -156,11 +159,11 @@ npmPackages() {
 
   for package in "${packages[@]}"; do
     if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "$package";  then
-      [ $package = '' ] || echo "$package already installed"
+      [ "$package" = '' ] || echo "$package already installed"
       continue
     fi
     echo "Installing $package..."
-    npm install -g $package
+    npm install -g "$package"
   done
 }
 
@@ -173,11 +176,11 @@ gemPackages() {
 
   for package in "${packages[@]}"; do
     if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "$package"; then
-      [ $package = '' ] || echo "$package already installed"
+      [ "$package" = '' ] || echo "$package already installed"
       continue
     fi
     echo "Installing $package..."
-    GEM_HOME=~/.gen GEM_PATH=~/.gem gem install $package
+    GEM_HOME=~/.gen GEM_PATH=~/.gem gem install "$package"
   done
 }
 
@@ -211,7 +214,7 @@ masPackages() {
       continue
     fi
     echo "Installing $package..."
-    mas install $package
+    mas install "$package"
   done
 }
 
@@ -239,11 +242,11 @@ pipPackages() {
 
   for package in "${packages[@]}"; do
    if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "$package"; then
-      [ $package = '' ] || echo "$package already installed"
+      [ "$package" = '' ] || echo "$package already installed"
       continue
     fi
     echo "Installing $package..."
-    PIP_REQUIRE_VIRTUALENV="" pip install $package
+    PIP_REQUIRE_VIRTUALENV="" pip install "$package"
   done
 }
 
@@ -288,24 +291,23 @@ zshInstall() {
   h1 "ZSH requirements"
 
   # ZGZN is a plugin manager for ZSH
-  [ -d $HOME/.zsh/zgen ] || git clone https://github.com/tarjoilija/zgen $HOME/.zsh/zgen
+  [ -d "${HOME}/.zsh/zgen" ] || git clone https://github.com/tarjoilija/zgen "${HOME}/.zsh/zgen"
 
   # Store history in a DB
-  [ -d $HOME/.zsh/zsh-histdb ] || git clone https://github.com/larkery/zsh-histdb $HOME/.zsh/zsh-histdb
+  [ -d "${HOME}/.zsh/zsh-histdb" ] || git clone https://github.com/larkery/zsh-histdb "${HOME}/.zsh/zsh-histdb"
 
   # Set zsh as default shell
-  if ! dscl . -read /Users/$(whoami) UserShell | awk '{print $2}' | grep -q '/zsh'; then
+  if dscl . -read "/Users/$(whoami)" UserShell | awk '{print $2}' | grep -qv '/zsh'; then
     echo "Changing the default shell. This will prompt a password request."
-    if ! grep -q $(which zsh) /etc/shells; then
-      echo "$(which zsh)" | sudo tee -a /etc/shells
+    if ! grep -q "$(which zsh)" /etc/shells; then
+      which zsh | sudo tee -a /etc/shells
     fi
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
   else
     echo "Default shell is already zsh. Skipping..."
   fi
 
 }
-
 
 askForPackagesUpdate
 
