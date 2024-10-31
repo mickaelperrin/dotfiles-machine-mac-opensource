@@ -5,6 +5,7 @@ Host *
     TCPKeepAlive no
     ForwardAgent no
 
+Include "~/.ssh/config.d/*"
 
 ## PHPStorm doesn't support include statements
 ## SSH connection used in PHPStorm should be configured below
