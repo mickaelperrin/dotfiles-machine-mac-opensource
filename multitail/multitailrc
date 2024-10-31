@@ -45,6 +45,7 @@ cs_re:white,red:PHP (Stack trace:|Fatal error:).*
 mcsre_s:,,bold:PHP Fatal error: (.*)
 # stack traces from xdebug have leading "PHP +"
 cs_re:white,red:PHP [ 0-9]+\.
+cs_re:white,red:\[E_PARSE\] .*
 cs_re:white,red:\[E_ERROR\] .*
 cs_re:white,yellow:PHP Warning: .*
 mcsre_s:,,bold:PHP Warning: (.*)
@@ -53,6 +54,7 @@ cs_re:yellow:PHP Notice: .*
 cs_re:yellow:\[E_NOTICE\] .*
 mcsre_s:,,bold:PHP Notice: (.*)
 mcsre_s:,,bold:\[E_Notice\] (.*)
+cs_re_s:245:(\[E_DEPRECATED\] .*)
 
 # custom severity tags
 cs_re:white,red,bold:\[(ALERT|CRIT|EMERG|FATAL)\]
