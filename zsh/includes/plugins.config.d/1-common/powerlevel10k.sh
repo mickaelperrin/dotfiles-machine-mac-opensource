@@ -1,1 +1,1 @@
-[ -f ~/.p10k.zsh ]  && source ~/.p10k.zsh
+[ -e ~/.p10k.zsh ] && source ~/.p10k.zsh
