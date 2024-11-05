@@ -19,11 +19,23 @@ group by commands.argv order by count(*) desc limit 1"
 
 #export ZSH_AUTOSUGGEST_STRATEGY=histdb_top_here
 
+_histd_query_history() {
+  if [ "$1" = 'force' ] || [ ! -f ~/.hist_fzf ]; then
+    histdb --host --sep @@@ | tac | awk -F'@@@' '!seen[$5]++ {print $5}' | tee ~/.hist_fzf
+  else
+    cat ~/.hist_fzf
+  fi
+}
+
 histdb-fzf-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
-  selected=( $(histdb --host --sep 999 | tac | awk -F'999' '{print $5}' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
+  local command='zsh -c ". ~/.zshrc;_histd_query_history force"'
+  selected=(
+    $(_histd_query_history |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index  --bind='ctrl-r:reload:$command' $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf
+    )
+  )
 
   LBUFFER=$selected
   zle redisplay
@@ -33,4 +45,5 @@ histdb-fzf-widget() {
 }
 
 zle     -N   histdb-fzf-widget
+zle     -N   _histd_query_history
 bindkey '^R' histdb-fzf-widget
