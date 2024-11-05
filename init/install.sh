@@ -290,12 +290,6 @@ zshInstall() {
 
   h1 "ZSH requirements"
 
-  # ZGZN is a plugin manager for ZSH
-  [ -d "${HOME}/.zsh/zgen" ] || git clone https://github.com/tarjoilija/zgen "${HOME}/.zsh/zgen"
-
-  # Store history in a DB
-  [ -d "${HOME}/.zsh/zsh-histdb" ] || git clone https://github.com/larkery/zsh-histdb "${HOME}/.zsh/zsh-histdb"
-
   # Set zsh as default shell
   if dscl . -read "/Users/$(whoami)" UserShell | awk '{print $2}' | grep -qv '/zsh'; then
     echo "Changing the default shell. This will prompt a password request."
