@@ -7,3 +7,5 @@ zstyle ':completion:*' menu select
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS} "ma=48;5;244;38;5;255"
 
+# Enable case-insensitive matching for file and directory names
+zstyle ':completion:*:*:*:*'   matcher-list 'm:{a-z}={A-Z}' 'l:|=*'
