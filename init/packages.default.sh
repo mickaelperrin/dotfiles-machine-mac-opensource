@@ -33,11 +33,13 @@ BASE_PACKAGES=(
   jq # JSON processor
   lnav # Log file viewer
   md5deep # md5 recursive
+  mkcert # Easily create certificates
   multitail # Multiple tail -f used in scripts
   mutagen-io/mutagen/mutagen-compose-beta #File synchronisation for docker volumes (replaces unison)
   mysql-client
   node
   nodenv
+  nss  # Install certs in firefox trust store
   php
   pwgen # password generator
   pyenv
