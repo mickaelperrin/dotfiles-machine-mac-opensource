@@ -14,8 +14,15 @@ if [ ! -d ${ANTIDOTE_DIR}/.git ]; then
 fi
 
 export ZSH_CONFIG_PATH="${HOME}/.zsh/includes"
-export ANTIDOTE_CONFIG_TXT="$HOME/.zsh_plugins.txt"
-export ANTIDOTE_CONFIG_ZSH="$HOME/.zsh_plugins.zsh"
+if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
+  export ANTIDOTE_CONFIG_TXT="$HOME/.zsh_plugins.txt"
+  export ANTIDOTE_CONFIG_ZSH="$HOME/.zsh_plugins.zsh"
+else
+  export PROMPT='%~
+%# '
+  export ANTIDOTE_CONFIG_TXT="$HOME/.zsh_plugins_minimal.txt"
+  export ANTIDOTE_CONFIG_ZSH="$HOME/.zsh_plugins_minimal.zsh"
+fi
 
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
