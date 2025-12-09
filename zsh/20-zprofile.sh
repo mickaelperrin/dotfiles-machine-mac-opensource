@@ -34,6 +34,8 @@ path+=(
   $HOME/.gem/bin
   # Globally installed RVM
   $HOME/.rvm/bin
+  # Rust
+  $HOME/.cargo/bin
   # Added by Toolbox App
   "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 )
