@@ -11,11 +11,12 @@ BASE_TAPS=(
 
 BASE_PACKAGES=(
   blackbox # Manage secrets in git
+  bumpversion # Version bumper
   certbot # Generate certificates
   ccusage # Claude code usage
   composer # PHP package manager
-  clickup # Project maangament tool
   coreutils # Required for gshred binary
+  curl
   ctop # Docker containers top
   dart # Dart language
   deno # JS runtime
@@ -47,19 +48,26 @@ BASE_PACKAGES=(
   nodenv
   nss  # Install certs in firefox trust store
   php
+  php-code-sniffer # PHP linter
+  php-cs-fixer # PHP formatter
   pre-commit # Git hooks
   pwgen # password generator
   pyenv
   p7zip
+  ruby
   rust # Rust language
+  sass # CSS preprocessor
   shellfirm # Intercept risky commands
+  stow # Symlink manager (used in claude-code-stacks)
   tig # CLI git client
   trash # move file to macos trash
   tree # Display directory tree in CLI
   uv # Python package manager
   terminal-notifier # Mac OS notifications from CLI
   vim # Text editor
+  watch # Command watcher
   wget # CLI downloader
+  whois # Domain lookup
   yamllint
   yarn # Faster NPM clone by Facebook
   yq
