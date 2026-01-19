@@ -73,7 +73,8 @@ if [ ! -f "$ANTIDOTE_CONFIG_ZSH" ]; then
     cat "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt" >| "$ANTIDOTE_CONFIG_TXT"
   fi
 
-  envsubst < "$ANTIDOTE_CONFIG_TXT" | addPluginsConfig | antidote bundle >| "$ANTIDOTE_CONFIG_ZSH"
+  envsubst < "$ANTIDOTE_CONFIG_TXT" | addPluginsConfig | antidote bundle 2>/dev/null  >| "$ANTIDOTE_CONFIG_ZSH"
 fi
 
 source "$ANTIDOTE_CONFIG_ZSH"
+
