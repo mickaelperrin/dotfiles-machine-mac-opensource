@@ -16,15 +16,14 @@ mattmc3/ez-compinit
 romkatv/powerlevel10k
 
 # Navigation
-b4b4r07/enhancd
+# b4b4r07/enhancd is now replaced by zoxide
 $ZSH_CUSTOM_CONFIG_PATH/fzf.sh
 $ZSH_CUSTOM_CONFIG_PATH/misc.sh
 
 # Autoenv
 Tarrasch/zsh-autoenv
 
-# Virtualenv
-MichaelAquilina/zsh-autoswitch-virtualenv
+# VirtualenvMichaelAquilina/zsh-autoswitch-virtualenv
 
 # Aliases
 $ALIASES
