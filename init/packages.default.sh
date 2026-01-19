@@ -2,20 +2,25 @@
 # shellcheck disable=SC2034
 
 BASE_TAPS=(
-  homebrew/core
-  homebrew/cask
+  dart-lang/dart
   homebrew/cask-fonts
   homebrew/cask-versions
   kaplanelad/tap # shellfirm
+
 )
 
 BASE_PACKAGES=(
   blackbox # Manage secrets in git
+  certbot # Generate certificates
+  ccusage # Claude code usage
   composer # PHP package manager
   clickup # Project maangament tool
   coreutils # Required for gshred binary
   ctop # Docker containers top
+  dart # Dart language
+  deno # JS runtime
   docker-compose # Docker compose tool
+  dnsmasq # DNS local
   dos2unix # Convert text format
   fd # Simple fast alternative to find
   findutils # find xargs locate
@@ -32,6 +37,7 @@ BASE_PACKAGES=(
   htop # Top processes
   jq # JSON processor
   lnav # Log file viewer
+  markdownlint-cli2 # Markdown linter
   md5deep # md5 recursive
   mkcert # Easily create certificates
   multitail # Multiple tail -f used in scripts
@@ -41,16 +47,20 @@ BASE_PACKAGES=(
   nodenv
   nss  # Install certs in firefox trust store
   php
+  pre-commit # Git hooks
   pwgen # password generator
   pyenv
   p7zip
+  rust # Rust language
   shellfirm # Intercept risky commands
   tig # CLI git client
   trash # move file to macos trash
   tree # Display directory tree in CLI
+  uv # Python package manager
   terminal-notifier # Mac OS notifications from CLI
   vim # Text editor
   wget # CLI downloader
+  yamllint
   yarn # Faster NPM clone by Facebook
   yq
   zsh # Main shell
@@ -61,19 +71,29 @@ TOOLS_PACKAGES=(
 )
 
 BASE_CASK_PACKAGES=(
-  alfred # effective launcher and much more
   1password
   1password-cli
+  arc
+  claude # Claude desktop
+  claude-code
+  clickup
+  docker-desktop
   font-hack-nerd-font
   iterm2 # Terminal
   jetbrains-toolbox # phpstorm installer
   gpg-suite-no-mail
+  redis-insight # Redis GUI
 )
 
 TOOLS_CASK_PACKAGES=(
 )
 
 NPM_PACKAGES=(
+  bun
+  intelephense
+  mdtail
+  pnpm
+  semantic-release
 )
 
 PIP_PACKAGES=(
