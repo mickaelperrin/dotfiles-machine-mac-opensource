@@ -23,7 +23,8 @@ $ZSH_CUSTOM_CONFIG_PATH/misc.sh
 # Autoenv
 Tarrasch/zsh-autoenv
 
-# VirtualenvMichaelAquilina/zsh-autoswitch-virtualenv
+# Virtualenv
+MichaelAquilina/zsh-autoswitch-virtualenv
 
 # Aliases
 $ALIASES
