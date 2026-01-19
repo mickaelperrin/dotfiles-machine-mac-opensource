@@ -93,6 +93,13 @@ if command -v nodenv 1>/dev/null 2>&1; then
   source "${NODENV_ROOT}/nodenv.zsh"
 fi
 
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # Ruby
 # ----
 export GEM_HOME="$HOME/.gem.$(uname -m)"
