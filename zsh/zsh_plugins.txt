@@ -47,7 +47,7 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 #sorin-ionescu/prezto path:modules/history
 
 # History
-larkery/zsh-histdb
+# larkery/zsh-histdb is now replaced by atuin
 
 # TMUX
 
@@ -61,4 +61,4 @@ ariaieboy/laravel-sail
 ### Final Plugins
 # These popular core plugins should be loaded at the end
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-history-substring-search
+# zsh-users/zsh-history-substring-search is now replaced by atuin

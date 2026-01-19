@@ -46,4 +46,4 @@ histdb-fzf-widget() {
 
 zle     -N   histdb-fzf-widget
 zle     -N   _histd_query_history
-bindkey '^R' histdb-fzf-widget
+#bindkey '^R' histdb-fzf-widget

@@ -80,4 +80,8 @@ source "$ANTIDOTE_CONFIG_ZSH"
 
 if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
 eval "$(zoxide init zsh --cmd cd)"
+
+zvm_after_init() {
+  eval "$(atuin init zsh --disable-up-arrow)"
+}
 fi
