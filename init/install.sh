@@ -7,6 +7,7 @@ INSTALLED_TAPS=
 INSTALLED_GEMS=
 INSTALLED_NPM_PACKAGES=
 INSTALLED_PIP_PACKAGES=
+INSTALLED_GO_PACKAGES=
 export CURL_SSL_BACKEND=secure-transport
 
 if [ -e "${SCRIPT_DIR}/packages.sh" ]; then
@@ -48,6 +49,7 @@ getInstalledPackages() {
   INSTALLED_NPM_PACKAGES=$(ls -1 "$(npm root -g || true)")
   INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3 || true)
   INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}' || true)
+  INSTALLED_GO_PACKAGES=$(ls -1 "${GOBIN:-${GOPATH:-$HOME/go}/bin}" 2>/dev/null || true)
 
   echo "Installed brew taps:"
   echo "$INSTALLED_TAPS"
@@ -75,6 +77,10 @@ getInstalledPackages() {
   echo
   echo "Installed COMPOSER packages:"
   echo "$INSTALLED_COMPOSER_PACKAGES"
+  echo "--"
+  echo
+  echo "Installed GO packages:"
+  echo "$INSTALLED_GO_PACKAGES"
   echo "--"
   echo
 }
@@ -250,6 +256,25 @@ pipPackages() {
   done
 }
 
+goPackages() {
+
+  h1 "Go packages"
+
+  local packages=("${@}")
+  local alreadyInstalled=$INSTALLED_GO_PACKAGES
+
+  for package in "${packages[@]}"; do
+    # Extract binary name from package path (last segment)
+    local binName="${package##*/}"
+    if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "^${binName}$"; then
+      [ "$package" = '' ] || echo "$binName already installed"
+      continue
+    fi
+    echo "Installing $package..."
+    go install "${package}@latest"
+  done
+}
+
 requiredFolders() {
 
   h1 "Initialize required folders"
@@ -322,6 +347,7 @@ npmPackages "${NPM_PACKAGES[@]}"
 pipPackages "${PIP_PACKAGES[@]}"
 gemPackages "${GEM_PACKAGES[@]}"
 composerPackages "${COMPOSER_PACKAGES[@]}"
+goPackages "${GO_PACKAGES[@]}"
 requiredFolders
 zshInstall
 vimPluginsInstall

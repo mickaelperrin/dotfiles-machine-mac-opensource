@@ -89,5 +89,8 @@ COMPOSER_PACKAGES=(
   davidrjonas/composer-lock-diff
 )
 
+GO_PACKAGES=(
+)
+
 MAS_PACKAGES=(
 )
