@@ -8,6 +8,7 @@ INSTALLED_GEMS=
 INSTALLED_NPM_PACKAGES=
 INSTALLED_PIP_PACKAGES=
 INSTALLED_GO_PACKAGES=
+INSTALLED_CARGO_PACKAGES=
 export CURL_SSL_BACKEND=secure-transport
 
 if [ -e "${SCRIPT_DIR}/packages.sh" ]; then
@@ -50,6 +51,7 @@ getInstalledPackages() {
   INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3 || true)
   INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}' || true)
   INSTALLED_GO_PACKAGES=$(ls -1 "${GOBIN:-${GOPATH:-$HOME/go}/bin}" 2>/dev/null || true)
+  INSTALLED_CARGO_PACKAGES=$(cargo install --list 2>/dev/null | grep -E '^[a-zA-Z]' | awk '{print $1}' || true)
 
   echo "Installed brew taps:"
   echo "$INSTALLED_TAPS"
@@ -81,6 +83,10 @@ getInstalledPackages() {
   echo
   echo "Installed GO packages:"
   echo "$INSTALLED_GO_PACKAGES"
+  echo "--"
+  echo
+  echo "Installed CARGO packages:"
+  echo "$INSTALLED_CARGO_PACKAGES"
   echo "--"
   echo
 }
@@ -275,6 +281,23 @@ goPackages() {
   done
 }
 
+cargoPackages() {
+
+  h1 "Rust packages (cargo)"
+
+  local packages=("${@}")
+  local alreadyInstalled=$INSTALLED_CARGO_PACKAGES
+
+  for package in "${packages[@]}"; do
+    if [ "$package" = "" ] || echo "$alreadyInstalled" | grep -q "^${package}$"; then
+      [ "$package" = '' ] || echo "$package already installed"
+      continue
+    fi
+    echo "Installing $package..."
+    cargo install "$package"
+  done
+}
+
 requiredFolders() {
 
   h1 "Initialize required folders"
@@ -348,6 +371,7 @@ pipPackages "${PIP_PACKAGES[@]}"
 gemPackages "${GEM_PACKAGES[@]}"
 composerPackages "${COMPOSER_PACKAGES[@]}"
 goPackages "${GO_PACKAGES[@]}"
+cargoPackages "${CARGO_PACKAGES[@]}"
 requiredFolders
 zshInstall
 vimPluginsInstall
