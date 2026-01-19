@@ -101,3 +101,7 @@ export GEM_HOME="$HOME/.gem.$(uname -m)"
 # --------
 export PARALLEL_HOME="$HOME/.parallel.$(uname -m)"
 export PARALLEL_SHELL=$(which zsh)
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
