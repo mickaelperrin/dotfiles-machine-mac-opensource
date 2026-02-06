@@ -10,7 +10,6 @@ BASE_TAPS=(
 )
 
 BASE_PACKAGES=(
-  age # required by other
   blackbox # Manage secrets in git
   bumpversion # Version bumper
   certbot # Generate certificates
