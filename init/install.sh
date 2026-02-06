@@ -134,7 +134,6 @@ brewInstallPackages() {
     if ! echo "$alreadyInstalled" | grep -q "$package"; then
       echo "Installing brew package $package..."
       brew install $cask "$package"
-      age
     else
       echo "Package '$package' alreasy installed. Skipping..."
     fi
