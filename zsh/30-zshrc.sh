@@ -64,7 +64,7 @@ if [ ! -f "$ANTIDOTE_CONFIG_ZSH" ]; then
   export ALIASES=$(sourceFolder alias)
   export FUNCTIONS=$(sourceFolder functions)
   export ENVS=$(sourceFolder env)
-  export ZSH_CUSTOM_CONFIG_PATH="${HOME}/.zsh/includes/config.d"
+  export ZSH_CUSTOM_CONFIG_PATH="${HOME}/.zsh/includes/custom.d/1-common"
 
   if [ -f "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" ]; then
     cat "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" >| "$ANTIDOTE_CONFIG_TXT"
