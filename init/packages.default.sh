@@ -56,7 +56,6 @@ BASE_PACKAGES=(
   p7zip
   ruby
   rust # Rust language
-  sass # CSS preprocessor
   shellfirm # Intercept risky commands
   stow # Symlink manager (used in claude-code-stacks)
   tig # CLI git client
