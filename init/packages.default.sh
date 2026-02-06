@@ -12,7 +12,7 @@ BASE_TAPS=(
 BASE_PACKAGES=(
   age # required by other
   blackbox # Manage secrets in git
-  bump2version # Version bumper
+  bumpversion # Version bumper
   certbot # Generate certificates
   ccusage # Claude code usage
   composer # PHP package manager
