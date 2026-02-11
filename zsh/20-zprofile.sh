@@ -45,6 +45,9 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   path=(/opt/homebrew/bin $path)
 fi
 
+# Prepend ~/.bin after homebrew so our wrappers take priority
+path=($HOME/.bin $path)
+
 # Less
 # ----
 # Set the default Less options.
