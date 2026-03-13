@@ -1,0 +1,21 @@
+# Atuin base configuration (tier 1 - sensible defaults)
+# Override with tier 3 (~/.config/atuin symlink) for personal preferences
+#
+# NOTE: db_path volontairement omis — le default atuin
+# (~/.local/share/atuin/history.db) est conservé pour éviter de créer
+# une DB vide si un utilisateur avait déjà un historique au chemin par défaut.
+# Tier 3 peut redéfinir db_path si besoin.
+
+[keys]
+# Disable up/down in TUI to avoid conflicts with zsh-vi-mode
+up = "none"
+down = "none"
+
+[daemon]
+# Keep DB connection warm to eliminate cold-start latency on Ctrl+R
+enabled = true
+sync_frequency = 300
+
+[sync]
+# Enable sync v2
+records = true

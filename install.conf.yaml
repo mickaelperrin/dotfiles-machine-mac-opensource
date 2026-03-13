@@ -25,6 +25,10 @@
     ~/.zshrc: zsh/30-zshrc.sh
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
     /tmp/init: init
+    ~/.config/atuin/config.toml:
+      path: atuin/config.toml
+      create: true
+    ~/Library/LaunchAgents/com.atuin.daemon.plist: atuin/com.atuin.daemon.plist
 
 - shell:
     - command: /bin/bash /tmp/init/install.sh
@@ -32,3 +36,9 @@
       stdout: true
       stderr: true
       stdin: true
+    - command: |
+        if command -v atuin >/dev/null 2>&1 && [ -f ~/Library/LaunchAgents/com.atuin.daemon.plist ]; then
+          launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.atuin.daemon.plist 2>/dev/null || true
+          launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.atuin.daemon.plist
+        fi
+      description: Load atuin daemon LaunchAgent
