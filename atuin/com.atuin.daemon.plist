@@ -7,8 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/atuin</string>
-        <string>daemon</string>
+        <string>/bin/bash</string>
+        <string>/Users/mickaelperrin/.bin.base/atuin-daemon-wrapper.sh</string>
     </array>
 
     <key>RunAtLoad</key>
