@@ -78,10 +78,20 @@ fi
 
 source "$ANTIDOTE_CONFIG_ZSH"
 
+# claude-code-stack: core
+source "/Users/mickaelperrin/Development/AI/claude-stacks/core/core.rc"
+
 if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
 eval "$(zoxide init zsh --cmd cd)"
 
-zvm_after_init() {
-  eval "$(atuin init zsh --disable-up-arrow)"
-}
+  zvm_after_init() {
+    eval "$(atuin init zsh --disable-up-arrow)"
+  }
+fi
+# claude-code-stack: personal
+source "/Users/mickaelperrin/Development/AI/claude-stacks/personal/personal.rc"
+
+# ZPROF profiling output (PROD-001)
+if [[ "$ZPROF" = 1 ]]; then
+  zprof
 fi
