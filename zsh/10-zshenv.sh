@@ -1,5 +1,11 @@
 #!/opt/homebrew/bin/zsh
 
+# ZPROF profiling support (PROD-001)
+# Usage: ZPROF=1 zsh -i -c exit
+if [[ "$ZPROF" = 1 ]]; then
+  zmodload zsh/zprof
+fi
+
 # Overwrite default path generated with /usr/libexec/path_helper -s in /etc/profile
 # To remove brew
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin"
