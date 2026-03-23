@@ -15,6 +15,9 @@ mattmc3/ez-compinit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 romkatv/powerlevel10k
 
+# Docker status indicator
+custom.d/p10k.docker-status.sh
+
 # Navigation
 # b4b4r07/enhancd is now replaced by zoxide
 $ZSH_CUSTOM_CONFIG_PATH/fzf.sh
