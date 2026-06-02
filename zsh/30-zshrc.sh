@@ -140,7 +140,39 @@ if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
     fi
   }
 
+  # Atuin — sélection du mode de recherche selon la version installée.
+  # daemon-fuzzy (>= 18.13) sert la recherche depuis un index en mémoire du daemon
+  # et élimine la latence "cold-start" du Ctrl+R. Sur une version antérieure, ce mode
+  # ferait échouer le chargement des settings (donc tout `atuin`) : on reste alors en
+  # fuzzy (défaut) et on affiche un rappel de mise à jour, sans rien casser.
+  # Coût de démarrage nul : `atuin --version` n'est relancé que si le binaire a changé.
+  () {
+    local cachedir="${XDG_CACHE_HOME:-$HOME/.cache}"
+    local cache="$cachedir/atuin-search-mode.zsh"
+    local bin
+    bin="$(command -v atuin)" || return 0
+    if [[ ! -e "$cache" || "$bin" -nt "$cache" ]]; then
+      [[ -d "$cachedir" ]] || mkdir -p "$cachedir"
+      autoload -Uz is-at-least
+      local ver=${${(z)"$(atuin --version 2>/dev/null)"}[2]}
+      if is-at-least 18.13.0 "${ver:-0}"; then
+        print 'export ATUIN_SEARCH_MODE=daemon-fuzzy' > "$cache"
+      else
+        print -r -- "print -u2 \"⚠ atuin ${ver:-?} < 18.13 — Ctrl+R lent (cold-start). Mets à jour : brew upgrade atuin\"" > "$cache"
+      fi
+    fi
+    source "$cache"
+  }
+
   zvm_after_init() {
+    # Fallback Ctrl+R : si l'init atuin échoue (absent / cassé / version incompatible),
+    # afficher un message utile au lieu d'un "no such widget" muet. En cas de succès,
+    # l'init atuin réenregistre ce widget (zle -N _atuin_search_widget _atuin_search).
+    _atuin_fallback_widget() {
+      zle -M "⚠ atuin indisponible (init en échec) — vérifie / mets à jour : brew upgrade atuin"
+    }
+    zle -N _atuin_search_widget _atuin_fallback_widget
+
     eval "$(atuin init zsh --disable-up-arrow)"
   }
 fi
