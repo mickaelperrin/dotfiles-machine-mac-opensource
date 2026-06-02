@@ -81,17 +81,44 @@ source "$ANTIDOTE_CONFIG_ZSH"
 if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
   eval "$(zoxide init zsh)"
 
+  # Historique des répertoires récents (persistant entre sessions), pour `cd -`.
+  # chpwd_recent_dirs n'enregistre qu'en shell interactif (garde -o interactive).
+  autoload -Uz add-zsh-hook chpwd_recent_dirs cdr
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 100
+  zstyle ':chpwd:*' recent-dirs-default false
+
   # Navigation façon enhancd : `cd` flou ouvre une liste fzf au lieu de sauter
-  # aveuglément. Les chemins réels, `cd -`, `..`, chemins absolus/relatifs gardent
-  # le comportement direct. `z`/`zi` sont fournis par zoxide (sans --cmd cd) et
-  # utilisent `builtin cd` en interne : pas de récursion.
+  # aveuglément. Les chemins réels et `..` gardent le comportement direct.
+  # Cas spéciaux :
+  #   cd       -> liste interactive frecency (zoxide)
+  #   cd ...   -> liste fzf des répertoires parents du courant
+  #   cd -     -> liste fzf des 10 derniers répertoires (avant-dernier en tête)
+  # `z`/`zi` sont fournis par zoxide (sans --cmd cd) et utilisent `builtin cd`
+  # en interne : pas de récursion. `builtin cd` est enregistré par le hook zoxide.
   cd() {
     if (( $# == 0 )); then
-      zi                                   # sans argument -> liste interactive
-    elif [[ -d "$1" || "$1" == "-" || "$1" == /* || "$1" == ~* || "$1" == .* ]]; then
-      z "$@"                               # chemin explicite -> cd direct (enregistré)
+      zi                                       # sans argument -> liste frecency
+    elif [[ "$1" == "..." ]]; then
+      local d="$PWD" target
+      local -a parents
+      while [[ "$d" != "/" ]]; do             # construit la chaîne des parents
+        d="${d:h}"
+        parents+=("$d")
+      done
+      target=$(print -rl -- "${parents[@]}" \
+        | fzf --height=40% --layout=reverse --prompt='parent> ') \
+        && builtin cd -- "$target"
+    elif [[ "$1" == "-" ]]; then
+      cdr -r                                   # remplit $reply : récents, courant exclu
+      local target
+      target=$(print -rl -- "${reply[1,10]}" \
+        | fzf --height=40% --layout=reverse --prompt='récent> ') \
+        && builtin cd -- "$target"
+    elif [[ -d "$1" || "$1" == /* || "$1" == ~* || "$1" == .* ]]; then
+      z "$@"                                   # chemin explicite -> cd direct
     else
-      zi "$@"                              # mot-clé flou -> liste fzf pré-filtrée
+      zi "$@"                                  # mot-clé flou -> liste fzf pré-filtrée
     fi
   }
 
