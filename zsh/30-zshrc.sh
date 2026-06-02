@@ -97,6 +97,8 @@ if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
   #   cd       -> liste interactive frecency (zoxide)
   #   cd ...   -> liste fzf des répertoires parents du courant
   #   cd -     -> liste fzf des 10 derniers répertoires (avant-dernier en tête)
+  #   cd @     -> racine du dépôt git courant
+  #   cd ,     -> liste fzf des répertoires frères (même parent)
   # `z`/`zi` sont fournis par zoxide (sans --cmd cd) et utilisent `builtin cd`
   # en interne : pas de récursion. `builtin cd` est enregistré par le hook zoxide.
   cd() {
@@ -117,6 +119,19 @@ if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
       local target
       target=$(print -rl -- "${reply[1,10]}" \
         | fzf --height=40% --layout=reverse --prompt='récent> ') \
+        && builtin cd -- "$target"
+    elif [[ "$1" == "@" ]]; then
+      local root                               # racine du dépôt git courant
+      root=$(git rev-parse --show-toplevel 2>/dev/null) \
+        && builtin cd -- "$root" \
+        || print -u2 "cd: pas dans un dépôt git"
+    elif [[ "$1" == "," ]]; then
+      local target
+      local -a siblings
+      siblings=("${PWD:h}"/*(N-/))            # répertoires du parent (nullglob)
+      siblings=(${siblings:#$PWD})             # exclut le répertoire courant
+      target=$(print -rl -- "${siblings[@]}" \
+        | fzf --height=40% --layout=reverse --prompt='frère> ') \
         && builtin cd -- "$target"
     elif [[ -d "$1" || "$1" == /* || "$1" == ~* || "$1" == .* ]]; then
       z "$@"                                   # chemin explicite -> cd direct
