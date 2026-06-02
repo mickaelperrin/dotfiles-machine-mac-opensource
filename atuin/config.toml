@@ -12,7 +12,10 @@ up = "none"
 down = "none"
 
 [daemon]
-# Keep DB connection warm to eliminate cold-start latency on Ctrl+R
+# Le daemon assure la sync en arrière-plan ET l'index en mémoire du mode de
+# recherche "daemon-fuzzy". C'est daemon-fuzzy — pas le daemon seul — qui élimine
+# la latence cold-start du Ctrl+R. Le mode est activé via ATUIN_SEARCH_MODE selon
+# la version d'atuin installée (cf. ~/.zshrc), pas ici (incompatible < 18.13).
 enabled = true
 sync_frequency = 300
 
