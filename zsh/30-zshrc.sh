@@ -82,7 +82,21 @@ source "$ANTIDOTE_CONFIG_ZSH"
 source "/Users/mickaelperrin/Development/AI/claude-stacks/core/core.rc"
 
 if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
-eval "$(zoxide init zsh --cmd cd)"
+  eval "$(zoxide init zsh)"
+
+  # Navigation façon enhancd : `cd` flou ouvre une liste fzf au lieu de sauter
+  # aveuglément. Les chemins réels, `cd -`, `..`, chemins absolus/relatifs gardent
+  # le comportement direct. `z`/`zi` sont fournis par zoxide (sans --cmd cd) et
+  # utilisent `builtin cd` en interne : pas de récursion.
+  cd() {
+    if (( $# == 0 )); then
+      zi                                   # sans argument -> liste interactive
+    elif [[ -d "$1" || "$1" == "-" || "$1" == /* || "$1" == ~* || "$1" == .* ]]; then
+      z "$@"                               # chemin explicite -> cd direct (enregistré)
+    else
+      zi "$@"                              # mot-clé flou -> liste fzf pré-filtrée
+    fi
+  }
 
   zvm_after_init() {
     eval "$(atuin init zsh --disable-up-arrow)"
