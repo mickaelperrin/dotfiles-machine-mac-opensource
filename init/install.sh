@@ -47,7 +47,7 @@ getInstalledPackages() {
   INSTALLED_CASK_PACKAGES=$(brew list --cask -1)
   INSTALLED_TAPS=$(brew tap)
   INSTALLED_GEMS=$(gem list --no-versions || true)
-  INSTALLED_NPM_PACKAGES=$(ls -1 "$(npm root -g || true)")
+  INSTALLED_NPM_PACKAGES=$(command -v npm >/dev/null 2>&1 && ls -1 "$(npm root -g)" 2>/dev/null || true)
   INSTALLED_PIP_PACKAGES=$(pip list | awk '{print $1}' | tail -n+3 || true)
   INSTALLED_COMPOSER_PACKAGES=$(composer global show 2>/dev/null | awk '{print $1}' || true)
   INSTALLED_GO_PACKAGES=$(ls -1 "${GOBIN:-${GOPATH:-$HOME/go}/bin}" 2>/dev/null || true)

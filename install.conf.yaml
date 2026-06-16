@@ -20,7 +20,9 @@
       create: true
     ~/.zlogin: zsh/40-zlogin.sh
     ~/.zlogout: zsh/50-zlogout.sh
-    ~/.zprofile: zsh/20-zprofile.sh
+    ~/.zprofile:
+      path: zsh/20-zprofile.sh
+      force: true
     ~/.zshenv: zsh/10-zshenv.sh
     ~/.zshrc: zsh/30-zshrc.sh
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
