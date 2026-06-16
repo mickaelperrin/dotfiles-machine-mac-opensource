@@ -3,8 +3,6 @@
 
 BASE_TAPS=(
   dart-lang/dart
-  homebrew/cask-fonts
-  homebrew/cask-versions
   kaplanelad/tap # shellfirm
 
 )
