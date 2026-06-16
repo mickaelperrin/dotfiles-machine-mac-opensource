@@ -66,14 +66,23 @@ if [ ! -f "$ANTIDOTE_CONFIG_ZSH" ]; then
   export ENVS=$(sourceFolder env)
   export ZSH_CUSTOM_CONFIG_PATH="${HOME}/.zsh/includes/custom.d/1-common"
 
-  if [ -f "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" ]; then
-    cat "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" >| "$ANTIDOTE_CONFIG_TXT"
-  fi
-  if [ -f "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt" ]; then
-    cat "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt" >| "$ANTIDOTE_CONFIG_TXT"
-  fi
+  # Assemble the effective plugin list: the base list ($ANTIDOTE_CONFIG_TXT is a
+  # symlink owned by the top-most installed tier) plus optional additive fragments
+  # that higher tiers drop into ~/.zsh/includes (e.g. zsh_plugins.custom.txt from
+  # 2-shared). Build into a separate file so the symlinked base list is never
+  # overwritten, then bundle from the assembled result.
+  _zsh_plugins_assembled="${ANTIDOTE_CONFIG_TXT:r}.assembled.txt"
+  cat "$ANTIDOTE_CONFIG_TXT" >| "$_zsh_plugins_assembled"
+  for _zsh_plugins_fragment in \
+    "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" \
+    "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt"; do
+    [ -f "$_zsh_plugins_fragment" ] || continue
+    print >> "$_zsh_plugins_assembled"
+    cat "$_zsh_plugins_fragment" >> "$_zsh_plugins_assembled"
+  done
+  unset _zsh_plugins_fragment
 
-  envsubst < "$ANTIDOTE_CONFIG_TXT" | addPluginsConfig | antidote bundle 2>/dev/null  >| "$ANTIDOTE_CONFIG_ZSH"
+  envsubst < "$_zsh_plugins_assembled" | addPluginsConfig | antidote bundle 2>/dev/null >| "$ANTIDOTE_CONFIG_ZSH"
 fi
 
 source "$ANTIDOTE_CONFIG_ZSH"

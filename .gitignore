@@ -9,6 +9,10 @@
 /zsh/includes/alias.d/custom
 /zsh/includes/completions.d/custom
 
+# Additive plugin-list fragments dropped in by higher tiers (e.g. 2-shared)
+/zsh/includes/zsh_plugins.common.txt
+/zsh/includes/zsh_plugins.custom.txt
+
 # Created by https://www.gitignore.io/api/phpstorm
 # Edit at https://www.gitignore.io/?templates=phpstorm
 
