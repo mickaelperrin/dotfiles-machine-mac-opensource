@@ -11,6 +11,11 @@ INSTALLED_GO_PACKAGES=
 INSTALLED_CARGO_PACKAGES=
 export CURL_SSL_BACKEND=secure-transport
 
+# Make Homebrew fully non-interactive and quiet during provisioning
+export HOMEBREW_NO_ASK=1             # disable the default "Do you want to proceed?" prompt (deps)
+export HOMEBREW_NO_INSTALL_CLEANUP=1 # no post-install cleanup noise
+export HOMEBREW_NO_ENV_HINTS=1       # hide the env hints printed after each install
+
 if [ -e "${SCRIPT_DIR}/packages.sh" ]; then
   # shellcheck disable=SC1090
   . "${SCRIPT_DIR}/packages.sh"
