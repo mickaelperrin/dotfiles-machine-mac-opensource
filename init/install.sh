@@ -141,6 +141,11 @@ brewInstallPackages() {
     fi
     if ! echo "$alreadyInstalled" | grep -q "$package"; then
       echo "Installing brew package $package..."
+      # Trust the tap of a tap-qualified package (owner/tap/formula) so brew
+      # also loads its tap-mate dependencies (e.g. mutagen-beta for mutagen).
+      case "$package" in
+        */*/*) brew trust "${package%/*}" 2>/dev/null || true ;;
+      esac
       brew install $cask "$package"
     else
       echo "Package '$package' alreasy installed. Skipping..."
