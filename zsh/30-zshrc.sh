@@ -88,14 +88,18 @@ fi
 source "$ANTIDOTE_CONFIG_ZSH"
 
 if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
-  eval "$(zoxide init zsh)"
-
   # Historique des répertoires récents (persistant entre sessions), pour `cd -`.
   # chpwd_recent_dirs n'enregistre qu'en shell interactif (garde -o interactive).
   autoload -Uz add-zsh-hook chpwd_recent_dirs cdr
   add-zsh-hook chpwd chpwd_recent_dirs
   zstyle ':chpwd:*' recent-dirs-max 100
   zstyle ':chpwd:*' recent-dirs-default false
+
+  # La navigation `cd` personnalisée dépend de zoxide (`z`/`zi`). Sur une machine
+  # neuve où `./install` n'a pas encore installé zoxide, on conserve le `cd` natif
+  # pour éviter « cd: command not found: z » à chaque changement de répertoire.
+  if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
 
   # Navigation façon enhancd : `cd` flou ouvre une liste fzf au lieu de sauter
   # aveuglément. Les chemins réels et `..` gardent le comportement direct.
@@ -145,6 +149,7 @@ if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
       zi "$@"                                  # mot-clé flou -> liste fzf pré-filtrée
     fi
   }
+  fi
 
   # Atuin — sélection du mode de recherche selon la version installée.
   # daemon-fuzzy (>= 18.13) sert la recherche depuis un index en mémoire du daemon
