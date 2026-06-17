@@ -106,6 +106,9 @@ brewTaps() {
     else
       echo "Tap '$tap' alreasy installed. Skipping..."
     fi
+    # Trust third-party taps so brew loads their formulae (Homebrew >= 4.6
+    # refuses untrusted taps). No-op/handled gracefully on official taps.
+    brew trust "$tap" 2>/dev/null || true
   done
 }
 
