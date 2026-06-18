@@ -4,8 +4,6 @@
 BASE_TAPS=(
   dart-lang/dart
   kaplanelad/tap # shellfirm
-  morantron/tmux-fingers # tmux-fingers (utilisé dans home/tmux/tmux.conf)
-
 )
 
 BASE_PACKAGES=(
@@ -48,7 +46,6 @@ BASE_PACKAGES=(
   markdownlint-cli2 # Markdown linter
   md5deep # md5 recursive
   mkcert # Easily create certificates
-  morantron/tmux-fingers/tmux-fingers # tmux fingers (used in home/tmux/tmux.conf)
   multitail # Multiple tail -f used in scripts
   mutagen-io/mutagen/mutagen-compose-beta #File synchronisation for docker volumes (replaces unison)
   mysql-client
