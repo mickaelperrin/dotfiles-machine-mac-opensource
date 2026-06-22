@@ -7,6 +7,7 @@ BASE_TAPS=(
 )
 
 BASE_PACKAGES=(
+  bash # Modern bash (>=5); macOS ships 3.2, needed by interactive installers
   bats-core # Bash Automated Testing System
   blackbox # Manage secrets in git
   bumpversion # Version bumper
