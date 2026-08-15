@@ -30,7 +30,9 @@
     ~/.config/atuin/config.toml:
       path: atuin/config.toml
       create: true
-    ~/Library/LaunchAgents/com.atuin.daemon.plist: atuin/com.atuin.daemon.plist
+    ~/Library/LaunchAgents/com.atuin.daemon.plist:
+      path: atuin/com.atuin.daemon.plist
+      create: true
 
 - shell:
     - command: /bin/bash /tmp/init/install.sh
@@ -44,3 +46,7 @@
           launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.atuin.daemon.plist
         fi
       description: Load atuin daemon LaunchAgent
+    - command: /tmp/init/verify.sh
+      description: Vérification des post-conditions
+      stdout: true
+      stderr: true

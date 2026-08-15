@@ -406,6 +406,30 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 - **Missing commands:** Run `~/.dotfiles.base/install` to re-link
 - **Pyenv issues:** Architecture mismatch, check `PYENV_ROOT`
 
+### Expected dotbot warning: `~/.config/atuin/config.toml`
+
+On a machine that also has tier 3, this link **always** fails with
+`already exists but is a regular file or directory`. This is expected, not a
+regression: tier 3 links the whole `~/.config/atuin` **directory** to its own
+folder, which shadows this tier's per-file link. Tier 3's `config.toml` already
+carries every setting declared here (`[keys]`, `[sync] records`,
+`[daemon] enabled`, `sync_frequency`), so nothing is lost.
+
+The link is kept so that tier 1 remains usable standalone. It is deliberately
+**not** among the assertions of `init/verify.sh` — that script only asserts
+post-conditions that must hold on every machine.
+
+### Post-install verification
+
+`init/verify.sh` runs as the last `- shell:` step of `install.conf.yaml` and
+asserts the critical post-conditions (atuin present, LaunchAgent linked, daemon
+loaded, zsh includes linked). It exits non-zero on the first unmet one, printing
+a `✓`/`✗` recap.
+
+It exists because dotbot downgrades a failed link to a warning and keeps going:
+in August 2026 the atuin daemon LaunchAgent silently never got linked, and the
+failure went unnoticed for five days.
+
 ---
 
 ## File Reference
