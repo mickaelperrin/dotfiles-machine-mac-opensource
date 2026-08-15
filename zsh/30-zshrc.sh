@@ -31,7 +31,34 @@ zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 fpath=(${ANTIDOTE_DIR}/functions $fpath)
 autoload -Uz antidote
 
-if [ ! -f "$ANTIDOTE_CONFIG_ZSH" ]; then
+# Assemble the effective plugin list on every start: the base list
+# ($ANTIDOTE_CONFIG_TXT is a symlink owned by the top-most installed tier) plus
+# the optional additive fragments higher tiers drop into ~/.zsh/includes (e.g.
+# zsh_plugins.custom.txt from 2-shared). A few reads of small files, kept out of
+# the rebuild branch so that a change of tier is always noticed.
+_zsh_plugins_assembled="${ANTIDOTE_CONFIG_TXT:r}.assembled.txt"
+_zsh_plugins_effective="$(
+  cat "$ANTIDOTE_CONFIG_TXT"
+  for _f in "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" \
+    "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt"; do
+    [ -f "$_f" ] || continue
+    print
+    cat "$_f"
+  done
+)"
+
+# Rebuild only when that list actually changed, or when the bundle is missing.
+# Content, not mtime: $ANTIDOTE_CONFIG_TXT is a symlink re-pointed by whichever
+# tier installs last, and the file it newly points at can be OLDER than the
+# bundle. A date comparison therefore misses a change of tier — which is how a
+# tier-1 bundle survived the tier-3 install of 2026-08-09, silently dropping
+# zsh-vi-mode and, with it, the atuin Ctrl+R widget.
+# Scope: the plugin list only. Adding a file under ~/.zsh/includes does not
+# trigger a rebuild — remove $ANTIDOTE_CONFIG_ZSH to force one.
+# -s, not -f: a zero-byte bundle is a failed build, not a valid one. Treating it
+# as present is how an empty bundle survived and left a shell with no plugins.
+if [ ! -s "$ANTIDOTE_CONFIG_ZSH" ] ||
+  [ "$_zsh_plugins_effective" != "$(cat "$_zsh_plugins_assembled" 2>/dev/null)" ]; then
 
   function sourceFolder() {
     local configFolderPath="$ZSH_CONFIG_PATH/$1"
@@ -66,24 +93,24 @@ if [ ! -f "$ANTIDOTE_CONFIG_ZSH" ]; then
   export ENVS=$(sourceFolder env)
   export ZSH_CUSTOM_CONFIG_PATH="${HOME}/.zsh/includes/custom.d/1-common"
 
-  # Assemble the effective plugin list: the base list ($ANTIDOTE_CONFIG_TXT is a
-  # symlink owned by the top-most installed tier) plus optional additive fragments
-  # that higher tiers drop into ~/.zsh/includes (e.g. zsh_plugins.custom.txt from
-  # 2-shared). Build into a separate file so the symlinked base list is never
-  # overwritten, then bundle from the assembled result.
-  _zsh_plugins_assembled="${ANTIDOTE_CONFIG_TXT:r}.assembled.txt"
-  cat "$ANTIDOTE_CONFIG_TXT" >| "$_zsh_plugins_assembled"
-  for _zsh_plugins_fragment in \
-    "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" \
-    "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt"; do
-    [ -f "$_zsh_plugins_fragment" ] || continue
-    print >> "$_zsh_plugins_assembled"
-    cat "$_zsh_plugins_fragment" >> "$_zsh_plugins_assembled"
-  done
-  unset _zsh_plugins_fragment
-
-  envsubst < "$_zsh_plugins_assembled" | addPluginsConfig | antidote bundle 2>/dev/null >| "$ANTIDOTE_CONFIG_ZSH"
+  # Bundle into memory first: an empty result means antidote failed, and writing
+  # it over the live bundle would leave the shell with no plugins at all. The
+  # assembled list is recorded only once the bundle is known good, so a failed
+  # rebuild is retried on the next start instead of being considered done.
+  # antidote's stderr is deliberately NOT silenced: on a rebuild it carries the
+  # clone progress of missing plugins, and on failure the only clue as to why the
+  # bundle came out empty. Rebuilds are rare now, so the output is not noise.
+  _zsh_plugins_bundle="$(print -r -- "$_zsh_plugins_effective" | envsubst | addPluginsConfig | antidote bundle)"
+  if [ -n "$_zsh_plugins_bundle" ]; then
+    print -r -- "$_zsh_plugins_bundle" >| "$ANTIDOTE_CONFIG_ZSH"
+    print -r -- "$_zsh_plugins_effective" >| "$_zsh_plugins_assembled"
+  else
+    print -u2 "⚠ antidote bundle a échoué — bundle précédent conservé ($ANTIDOTE_CONFIG_ZSH)"
+  fi
+  unset _zsh_plugins_bundle
 fi
+
+unset _zsh_plugins_assembled _zsh_plugins_effective
 
 source "$ANTIDOTE_CONFIG_ZSH"
 
