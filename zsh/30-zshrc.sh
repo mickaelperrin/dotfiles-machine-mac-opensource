@@ -37,8 +37,14 @@ autoload -Uz antidote
 # zsh_plugins.custom.txt from 2-shared). A few reads of small files, kept out of
 # the rebuild branch so that a change of tier is always noticed.
 _zsh_plugins_assembled="${ANTIDOTE_CONFIG_TXT:r}.assembled.txt"
+# A missing base list silently reduces the plugin set to the additive fragments
+# alone — the shape ~/.zsh_plugins_minimal.txt had while no tier linked it. Say so
+# instead of letting `cat` fail once per start with a bare "No such file".
+if [ ! -f "$ANTIDOTE_CONFIG_TXT" ]; then
+  print -u2 "⚠ liste de plugins introuvable : $ANTIDOTE_CONFIG_TXT — relance ./install"
+fi
 _zsh_plugins_effective="$(
-  cat "$ANTIDOTE_CONFIG_TXT"
+  cat "$ANTIDOTE_CONFIG_TXT" 2>/dev/null
   for _f in "${ZSH_CONFIG_PATH}/zsh_plugins.common.txt" \
     "${ZSH_CONFIG_PATH}/zsh_plugins.custom.txt"; do
     [ -f "$_f" ] || continue

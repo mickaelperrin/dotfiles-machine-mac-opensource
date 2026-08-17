@@ -37,6 +37,11 @@ check "atuin installé" command -v atuin
 check "LaunchAgent atuin lié" test -L "$HOME/Library/LaunchAgents/com.atuin.daemon.plist"
 check "daemon atuin chargé" launchctl print "gui/$(id -u)/com.atuin.daemon"
 check "includes zsh liés" test -L "$HOME/.zsh/includes"
+# -s and not -L: a higher tier may legitimately own either list, so what matters
+# is that both resolve to content. ~/.zsh_plugins_minimal.txt was linked by no
+# tier at all, which reduced every CLAUDECODE shell to a single plugin.
+check "liste de plugins résolue" test -s "$HOME/.zsh_plugins.txt"
+check "liste de plugins minimale résolue" test -s "$HOME/.zsh_plugins_minimal.txt"
 
 printf '\n'
 

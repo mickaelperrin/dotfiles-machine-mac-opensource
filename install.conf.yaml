@@ -26,6 +26,7 @@
     ~/.zshenv: zsh/10-zshenv.sh
     ~/.zshrc: zsh/30-zshrc.sh
     ~/.zsh_plugins.txt: zsh/zsh_plugins.txt
+    ~/.zsh_plugins_minimal.txt: zsh/zsh_plugins_minimal.txt
     /tmp/init: init
     ~/.config/atuin/config.toml:
       path: atuin/config.toml
