@@ -58,25 +58,39 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Python
 # ------
 export PIP_REQUIRE_VIRTUALENV=true
-export WORKON_HOME=$HOME/.virtualenvs.$(uname -m)
+export WORKON_HOME=$HOME/.virtualenvs
 [ -d $WORKON_HOME ] || mkdir -p $WORKON_HOME
 export VIRTUALENVWRAPPER_VIRTUALENV=$(brew --prefix)/bin/virtualenv
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 
-# Manage PYENV on M1 Mac and rosetta
-export PYENV_ROOT="${HOME}/.pyenv.$(uname -m)"
+export PYENV_ROOT="${HOME}/.pyenv"
 [ -d $PYENV_ROOT ] || mkdir -p $PYENV_ROOT
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  if [[ ! -f ${PYENV_ROOT}/zpyenv.zsh ]]; then
-    {
-      pyenv init - --no-rehash zsh
-      pyenv virtualenv-init - zsh
-    } >"${PYENV_ROOT}/zpyenv.zsh"
-  fi
-  source "${PYENV_ROOT}/zpyenv.zsh"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  path=($(pyenv root)/bin $path)
+if (( ${+commands[pyenv]} )); then
+  # Regenerate the init cache whenever the toolchain changes. The resolved
+  # binary paths carry the Homebrew Cellar version, so installing, upgrading
+  # or removing pyenv / pyenv-virtualenv all invalidate the cache. Guarding
+  # on mere file existence froze a cache generated while pyenv-virtualenv was
+  # not yet installed, leaving `pyenv activate` broken indefinitely.
+  () {
+    local sig="# sig: ${commands[pyenv]:A}|${commands[pyenv-virtualenv-init]:A}"
+    local cache="${PYENV_ROOT}/zpyenv.zsh"
+    local first='' src=''
+
+    [[ -s $cache ]] && read -r first < $cache
+    [[ $first == $sig ]] && return 0
+
+    src="$(pyenv init - --no-rehash zsh)"
+    (( ${+commands[pyenv-virtualenv-init]} )) && \
+      src+=$'\n'"$(pyenv virtualenv-init - zsh)"
+
+    # Only overwrite on non-empty output: a failed generation must never be
+    # frozen in place.
+    [[ -n $src ]] && print -r -- "$sig"$'\n'"$src" >! $cache
+  }
+
+  [[ -s "${PYENV_ROOT}/zpyenv.zsh" ]] && source "${PYENV_ROOT}/zpyenv.zsh"
+  path=($HOME/.local/bin $PYENV_ROOT/bin $path)
 fi
 
 # Node
@@ -85,15 +99,23 @@ fi
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
-export NODENV_ROOT="${HOME}/.nodenv.$(uname -m)"
+export NODENV_ROOT="${HOME}/.nodenv"
 [ -d $NODENV_ROOT ] || mkdir -p $NODENV_ROOT
-if command -v nodenv 1>/dev/null 2>&1; then
-  if [[ ! -f "${NODENV_ROOT}/nodenv.zsh" ]]; then
-    {
-      nodenv init - --no-rehash zsh
-    } >"${NODENV_ROOT}/nodenv.zsh"
-  fi
-  source "${NODENV_ROOT}/nodenv.zsh"
+if (( ${+commands[nodenv]} )); then
+  # Same cache-invalidation contract as pyenv above.
+  () {
+    local sig="# sig: ${commands[nodenv]:A}"
+    local cache="${NODENV_ROOT}/nodenv.zsh"
+    local first='' src=''
+
+    [[ -s $cache ]] && read -r first < $cache
+    [[ $first == $sig ]] && return 0
+
+    src="$(nodenv init - --no-rehash zsh)"
+    [[ -n $src ]] && print -r -- "$sig"$'\n'"$src" >! $cache
+  }
+
+  [[ -s "${NODENV_ROOT}/nodenv.zsh" ]] && source "${NODENV_ROOT}/nodenv.zsh"
 fi
 
 # pnpm
@@ -105,11 +127,11 @@ esac
 
 # Ruby
 # ----
-export GEM_HOME="$HOME/.gem.$(uname -m)"
+export GEM_HOME="$HOME/.gem"
 
 # Parallel
 # --------
-export PARALLEL_HOME="$HOME/.parallel.$(uname -m)"
+export PARALLEL_HOME="$HOME/.parallel"
 export PARALLEL_SHELL=$(which zsh)
 
 # Added by OrbStack: command-line tools and integration

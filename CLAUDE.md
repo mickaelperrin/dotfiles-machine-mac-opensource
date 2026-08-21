@@ -321,17 +321,17 @@ LANG='fr_FR.UTF-8'
 
 # Python
 PIP_REQUIRE_VIRTUALENV=true
-WORKON_HOME=$HOME/.virtualenvs.$(uname -m)
-PYENV_ROOT="${HOME}/.pyenv.$(uname -m)"
+WORKON_HOME=$HOME/.virtualenvs
+PYENV_ROOT="${HOME}/.pyenv"
 
 # Node
-NODENV_ROOT="${HOME}/.nodenv.$(uname -m)"
+NODENV_ROOT="${HOME}/.nodenv"
 
 # Ruby
-GEM_HOME="$HOME/.gem.$(uname -m)"
+GEM_HOME="$HOME/.gem"
 
 # Parallel
-PARALLEL_HOME="$HOME/.parallel.$(uname -m)"
+PARALLEL_HOME="$HOME/.parallel"
 PARALLEL_SHELL=$(which zsh)
 ```
 
@@ -359,8 +359,24 @@ Base SSH configuration with security defaults:
 ### Multi-Architecture Support
 
 The configuration handles both Apple Silicon and Intel Macs:
-- Architecture-specific directories: `.pyenv.arm64`, `.pyenv.x86_64`
 - Homebrew path: `/opt/homebrew/bin` for arm64, `/usr/local/bin` for x86_64
+- Version-manager roots are **not** architecture-suffixed (the `.arm64` /
+  `.x86_64` suffixes dated from Rosetta use and were removed)
+
+### Version-manager init cache
+
+`20-zprofile.sh` caches the `pyenv init` / `nodenv init` output instead of
+running it at every shell startup. The cache carries a `# sig:` first line
+holding the **resolved** binary paths — which include the Homebrew Cellar
+version — and is regenerated whenever that signature changes.
+
+This matters: guarding only on the cache file's existence once froze a cache
+generated while `pyenv-virtualenv` was not yet installed, leaving
+`pyenv activate` broken until the file was deleted by hand. The cache is also
+only overwritten when generation produced non-empty output, so a failed init
+can never be frozen in place.
+
+To force a rebuild, delete `$PYENV_ROOT/zpyenv.zsh` or `$NODENV_ROOT/nodenv.zsh`.
 
 ### Claude Code Integration
 
@@ -404,7 +420,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 
 - **Slow startup:** Check plugin count, use minimal mode
 - **Missing commands:** Run `~/.dotfiles.base/install` to re-link
-- **Pyenv issues:** Architecture mismatch, check `PYENV_ROOT`
+- **Pyenv issues:** check `PYENV_ROOT`; if `pyenv activate` reports that
+  Pyenv-Virtualenv is not loaded, the init cache is stale — delete
+  `$PYENV_ROOT/zpyenv.zsh` and open a new shell
 
 ### Expected dotbot warning: `~/.config/atuin/config.toml`
 
