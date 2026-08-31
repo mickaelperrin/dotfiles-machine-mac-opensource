@@ -158,9 +158,17 @@ if [ -z "$CLAUDECODE" ] || [ "$CLAUDECODE" -ne 1 ]; then
         | fzf --height=40% --layout=reverse --prompt='parent> ') \
         && builtin cd -- "$target"
     elif [[ "$1" == "-" ]]; then
-      cdr -r                                   # remplit $reply : récents, courant exclu
       local target
-      target=$(print -rl -- "${reply[1,10]}" \
+      local -a recents
+      cdr -r                                   # remplit $reply : récents, courant exclu
+      # `cdr -r` déclare reply en `typeset -ga` (sans -U, contrairement au hook
+      # chpwd_recent_dirs) : la liste contient des doublons. On dédoublonne AVANT
+      # la coupe à 10, sinon la liste offre moins de 10 répertoires distincts.
+      recents=("${(@u)reply}")
+      # "${(@)recents[1,10]}" et non "${recents[1,10]}" : entre guillemets, une
+      # tranche de tableau est jointe en UN seul mot séparé par des espaces —
+      # fzf ne recevait qu'une ligne contenant tous les chemins.
+      target=$(print -rl -- "${(@)recents[1,10]}" \
         | fzf --height=40% --layout=reverse --prompt='récent> ') \
         && builtin cd -- "$target"
     elif [[ "$1" == "@" ]]; then
