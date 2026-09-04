@@ -1,17 +1,17 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-  export PATH="$PATH:/usr/local/opt/fzf/bin"
+# `fzf --zsh` emits both the completion and the key bindings, resolved from the
+# running binary — no hardcoded prefix, so it works on Apple Silicon and Intel alike.
+# The previous block pointed at the Intel-only /usr/local/opt/fzf, which does not
+# exist on arm64: ALT-C, CTRL-T and the @@ trigger had silently never worked there.
+#
+# NOTE: this also binds ^R to fzf-history-widget. zsh-vi-mode resets the keymaps
+# afterwards and zvm_after_init_commands re-asserts ^R on atuin, which therefore wins.
+# Same reason the ALT-C / CTRL-T / TAB bindings are re-asserted there: anything bound
+# here is wiped when zsh-vi-mode initialises.
+if command -v fzf > /dev/null 2>&1; then
+  eval "$(fzf --zsh)"
 fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-# ------------
-#source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-
 
 _gen_fzf_default_opts() {
   local base03="234"
@@ -86,6 +86,5 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap 
 # Trigger fzf completion
 export FZF_COMPLETION_TRIGGER='@@'
 
-#TODO: bindkey not working ?
-#bindkey '^O' fzf-completion
-#bindkey '^P' $fzf_default_completion
+# FZF_ALT_C_COMMAND is deliberately left unset: fzf then uses its built-in walker
+# (--walker=dir,follow,hidden), which is faster than shelling out to fd.
