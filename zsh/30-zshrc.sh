@@ -69,7 +69,15 @@ if [ ! -s "$ANTIDOTE_CONFIG_ZSH" ] ||
   function sourceFolder() {
     local configFolderPath="$ZSH_CONFIG_PATH/$1"
     # --unrestricted is required because shared and custom folders are git ignored
-    fd ".*\.sh$" $configFolderPath --type f --absolute-path --follow --unrestricted| sort
+    local -a files=(${(f)"$(fd ".*\.sh$" $configFolderPath --type f --absolute-path --follow --unrestricted | sort)"})
+    # Already sourced by .zshenv: listing it again would load it twice. Compare
+    # resolved paths (:A): fd resolves the ~/.zsh/includes link but not the tier
+    # links below it, so the raw strings never match.
+    local early="${ZSHENV_EARLY_ENV:+${ZSHENV_EARLY_ENV:A}}" f
+    for f in $files; do
+      [ -n "$f" ] && [ "${f:A}" != "$early" ] && print -r -- "$f"
+    done
+    return 0
   }
 
   function addPluginsConfig() {
