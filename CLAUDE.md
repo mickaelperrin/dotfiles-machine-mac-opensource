@@ -463,4 +463,5 @@ failure went unnoticed for five days.
 | `vim/ideavimrc` | `~/.ideavimrc` | IdeaVim config |
 | `ssh/config` | `~/.ssh/config` | SSH config |
 | `multitail/multitailrc` | `~/.multitailrc` | Log colors |
+| `ripgrep/config` | `~/.config/ripgrep/config` | rg defaults (`RIPGREP_CONFIG_PATH`): skip the OrbStack NFS mount and secret stores |
 | `bin/` | `~/.bin.base` | Custom scripts |

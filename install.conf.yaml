@@ -31,6 +31,10 @@
     ~/.config/atuin/config.toml:
       path: atuin/config.toml
       create: true
+    ~/.config/ripgrep/config:
+      path: ripgrep/config
+      create: true
+      force: true
     ~/Library/LaunchAgents/com.atuin.daemon.plist:
       path: atuin/com.atuin.daemon.plist
       create: true

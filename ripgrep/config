@@ -1,0 +1,17 @@
+# Never descend into the OrbStack NFS mount (KI-13).
+# ~/OrbStack is an NFS share served by OrbStack Helper: a $HOME-rooted walk turns
+# every directory entry into an RPC across every image layer of every container.
+# An explicit --glob is NOT neutralised by --no-ignore/-u, which makes this the rg
+# analogue of fd's --one-file-system. Unanchored form: a leading / would anchor to
+# the search root, not the filesystem root (silent placebo).
+--glob=!OrbStack/
+
+# Never print secret stores. Resolved secret files (*.resolved.sh: references
+# injected with their real values), *.secured* / *.secret* / *.s3k* stores hold
+# credentials in clear: a broad `rg` from a dotfiles root once printed API keys
+# from them into a session transcript. Same reason as above for --glob: it holds
+# under --no-ignore/-u; `rg --no-config` is the deliberate way around it.
+--glob=!*.resolved.sh
+--glob=!*.secured*
+--glob=!*.secret*
+--glob=!*.s3k*
