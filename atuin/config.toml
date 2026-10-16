@@ -18,6 +18,9 @@ down = "none"
 # la version d'atuin installée (cf. ~/.zshrc), pas ici (incompatible < 18.13).
 enabled = true
 sync_frequency = 300
+# Pinned because atuin >= 18.23 defaults to $TMPDIR/atuin-$UID/, while
+# atuin-daemon-wrapper.sh (stale socket cleanup) expects this path.
+socket_path = "~/.local/share/atuin/atuin.sock"
 
 [sync]
 # Enable sync v2
