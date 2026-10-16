@@ -7,7 +7,6 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/bin/bash</string>
         <string>/Users/mickaelperrin/.bin.base/atuin-daemon-wrapper.sh</string>
     </array>
 
