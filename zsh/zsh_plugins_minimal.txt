@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+# Environment
+# Must load BEFORE zsh-autoenv: autoenv sources the start directory's .autoenv.zsh
+# at plugin load, and its `autostash PATH` snapshot would miss what the env files
+# add (~/.bin.shared), then restore that incomplete PATH when leaving the directory.
+# No dollar sign in these comments: the whole list goes through envsubst.
+$ENVS
+
 # Autoenv
 Tarrasch/zsh-autoenv
 
@@ -11,6 +18,3 @@ $ALIASES
 
 # Functions
 $FUNCTIONS
-
-# Environment
-$ENVS

@@ -20,6 +20,13 @@ romkatv/powerlevel10k
 $ZSH_CUSTOM_CONFIG_PATH/fzf.sh
 $ZSH_CUSTOM_CONFIG_PATH/misc.sh
 
+# Environment
+# Must load BEFORE zsh-autoenv: autoenv sources the start directory's .autoenv.zsh
+# at plugin load, and its `autostash PATH` snapshot would miss what the env files
+# add (~/.bin.shared), then restore that incomplete PATH when leaving the directory.
+# No dollar sign in these comments: the whole list goes through envsubst.
+$ENVS
+
 # Autoenv
 Tarrasch/zsh-autoenv
 
@@ -52,9 +59,6 @@ zdharma-continuum/fast-syntax-highlighting kind:defer
 
 # TMUX
 
-
-# Environment
-$ENVS
 
 # Dev
 ariaieboy/laravel-sail
