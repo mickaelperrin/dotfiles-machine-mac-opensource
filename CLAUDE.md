@@ -130,7 +130,7 @@ Creates symlinks for:
 - Development: git, php, composer, node, nodenv, pyenv, go
 - Docker: docker-compose, ctop, mutagen-compose-beta
 - Tools: fzf, fd, jq, yq, vim, wget, tree, htop
-- Security: blackbox, mkcert, nss, gpg-suite-no-mail, 1password-cli
+- Security: blackbox, mkcert, nss, 1password-cli
 - Git: git-lfs, git-filter-repo, tig
 
 **Cask Applications:**

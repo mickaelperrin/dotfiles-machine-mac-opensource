@@ -99,7 +99,6 @@ BASE_CASK_PACKAGES=(
   ghostty # Terminal GPU (remplace iterm2)
   iterm2 # Terminal (à retirer après bascule complète vers ghostty)
   jetbrains-toolbox # phpstorm installer
-  gpg-suite-no-mail
   redis-insight # Redis GUI
 )
 
